@@ -1,0 +1,51 @@
+services:
+  pgvector:
+    image: pgvector/pgvector:pg16
+    container_name: ds-chatbot_pgvector
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./db:/var/lib/postgresql/data  # Guarda los datos en tu carpeta /db
+
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: ds-chatbot_n8n
+    restart: always
+    ports:
+      - "5678:5678" # Mapeo correcto de puertos
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_SECURE_COOKIE=true
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=pgvector
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - WEBHOOK_URL=https://chatbot-ccd.duckdns.org
+      - N8N_HOST=chatbot-ccd.duckdns.org
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://chatbot-ccd.duckdns.org/
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    volumes:
+      - ./n8n:/home/node/.n8n # Guarda tus flujos en tu carpeta /n8n
+    depends_on:
+      - pgvector
+
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: ds-chatbot_proxymanager
+    restart: unless-stopped
+    ports:
+      - '80:80'    # Tráfico HTTP público
+      - '443:443'  # Tráfico HTTPS público
+      - '81:81'    # Panel de administración de NPM
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt

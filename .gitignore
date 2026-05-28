@@ -1,0 +1,15 @@
+# Carpetas de datos (NO subir)
+data/
+db/
+n8n/
+letsencrypt/
+
+# Variables de entorno (NO subir)
+.env
+
+# Ignorar archivos SQL que aún no están listos o son viejos
+*.sql
+
+# Logs y archivos del sistema
+*.log
+.DS_Store
