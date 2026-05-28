@@ -1,0 +1,147 @@
+{
+  "updatedAt": "2026-05-27T20:20:16.346Z",
+  "createdAt": "2026-05-27T20:16:40.239Z",
+  "id": "s2NubDMZgkD24XIT",
+  "name": "oferta workflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT nrc, nombre_curso, pilar, modalidad, horario, fecha_inicio, fecha_fin, precio\nFROM oferta_vigente\nORDER BY pilar, nrc;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6144,
+        3072
+      ],
+      "id": "c3a9776b-8652-41af-8343-c729b835f8be",
+      "name": "Execute a SQL query3",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "854f73c1-2188-4917-a620-eb9786603c3c",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        5936,
+        3072
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query3": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "790bd2b8-4ede-417b-9f38-9e93614e5bdd",
+  "activeVersionId": "790bd2b8-4ede-417b-9f38-9e93614e5bdd",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-27T20:16:40.239Z",
+      "createdAt": "2026-05-27T20:16:40.239Z",
+      "role": "workflow:owner",
+      "workflowId": "s2NubDMZgkD24XIT",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-27T20:20:34.290Z",
+    "createdAt": "2026-05-27T20:20:16.347Z",
+    "versionId": "790bd2b8-4ede-417b-9f38-9e93614e5bdd",
+    "workflowId": "s2NubDMZgkD24XIT",
+    "nodes": [
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT nrc, nombre_curso, pilar, modalidad, horario, fecha_inicio, fecha_fin, precio\nFROM oferta_vigente\nORDER BY pilar, nrc;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          6144,
+          3072
+        ],
+        "id": "c3a9776b-8652-41af-8343-c729b835f8be",
+        "name": "Execute a SQL query3",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
+        "id": "854f73c1-2188-4917-a620-eb9786603c3c",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          5936,
+          3072
+        ]
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "Execute a SQL query3",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute a SQL query3": {
+        "main": [
+          []
+        ]
+      }
+    },
+    "authors": "Leydy Macareo",
+    "name": "Version 790bd2b8",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
