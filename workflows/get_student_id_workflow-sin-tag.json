@@ -1,0 +1,149 @@
+{
+  "updatedAt": "2026-05-27T20:30:53.567Z",
+  "createdAt": "2026-05-27T20:28:39.403Z",
+  "id": "N2Wnq0G2ttLS5YRH",
+  "name": "get_student_id_workflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id_estudiante\nFROM estudiante\nWHERE nombre_completo LIKE '{{ $json.full_name }}%';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6352,
+        3008
+      ],
+      "id": "5c4b1da8-9e29-47fa-b3a7-4434977a1f24",
+      "name": "get_student_id",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "full_name"
+            }
+          ]
+        }
+      },
+      "id": "e1c686e7-92d9-4fd9-b2f6-de6d475b6a33",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        6144,
+        3008
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "get_student_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "6512d761-ded8-427f-8609-46dcbfa182eb",
+  "activeVersionId": "6512d761-ded8-427f-8609-46dcbfa182eb",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-27T20:28:39.403Z",
+      "createdAt": "2026-05-27T20:28:39.403Z",
+      "role": "workflow:owner",
+      "workflowId": "N2Wnq0G2ttLS5YRH",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-27T20:31:02.435Z",
+    "createdAt": "2026-05-27T20:30:53.569Z",
+    "versionId": "6512d761-ded8-427f-8609-46dcbfa182eb",
+    "workflowId": "N2Wnq0G2ttLS5YRH",
+    "nodes": [
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT id_estudiante\nFROM estudiante\nWHERE nombre_completo LIKE '{{ $json.full_name }}%';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          6352,
+          3008
+        ],
+        "id": "5c4b1da8-9e29-47fa-b3a7-4434977a1f24",
+        "name": "get_student_id",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "full_name"
+              }
+            ]
+          }
+        },
+        "id": "e1c686e7-92d9-4fd9-b2f6-de6d475b6a33",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          6144,
+          3008
+        ]
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "get_student_id",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Leydy Macareo",
+    "name": "Version 6512d761",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
