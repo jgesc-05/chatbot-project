@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-28T14:31:12.421Z",
+  "updatedAt": "2026-05-28T16:01:50.101Z",
   "createdAt": "2026-05-22T00:13:50.442Z",
   "id": "zzCdlRRfI7MS4MOP",
   "name": "Bot CCD - Principal",
@@ -18,8 +18,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        13200,
-        4336
+        13392,
+        4384
       ],
       "id": "9975ba57-168b-4ffa-a2ae-347dfcabd080",
       "name": "Send a text message",
@@ -41,8 +41,8 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.2,
       "position": [
-        12464,
-        4336
+        12656,
+        4384
       ],
       "id": "0aaf73df-825b-496f-b9ab-81b52508d389",
       "name": "Telegram Trigger",
@@ -56,13 +56,13 @@
     },
     {
       "parameters": {
-        "content": "## Flujo sobre carga de embeddings al documento\n\n**Creado para cargar los embeddings en vectores de 4096**",
-        "height": 208
+        "content": "## Flujo sobre carga de embeddings al documento\n\n",
+        "height": 112
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        12112,
-        5872
+        12320,
+        5824
       ],
       "typeVersion": 1,
       "id": "a381fe90-0f51-4577-bb83-c7e850fa7d6f",
@@ -70,7 +70,8 @@
     },
     {
       "parameters": {
-        "content": "## Flujo cargo paginas web\n\n"
+        "content": "## Flujo cargo paginas web\n\n",
+        "height": 96
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
@@ -83,12 +84,13 @@
     },
     {
       "parameters": {
-        "content": "## Flujo principal\n\n**Crea el flujo para consultar lo relacionado con competencias digitales**"
+        "content": "## Flujo principal\n\n",
+        "height": 80
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        12128,
-        4464
+        12320,
+        4512
       ],
       "typeVersion": 1,
       "id": "3319f612-1d0d-4530-bd67-49e868cf3402",
@@ -109,8 +111,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        12448,
-        4576
+        12640,
+        4624
       ],
       "id": "191df455-3901-4442-a1f8-dde051bca9e1",
       "name": "Anthropic Chat Model",
@@ -130,8 +132,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        12560,
-        4576
+        12752,
+        4624
       ],
       "id": "6a656580-4888-416d-b865-2be96ba150df",
       "name": "Postgres Chat Memory1",
@@ -164,8 +166,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        13040,
-        4832
+        13232,
+        4880
       ],
       "name": "Call oferta workflow",
       "id": "93afe2e1-4d25-49b5-9f9b-69bc6af87b94"
@@ -192,8 +194,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        13040,
-        4688
+        13232,
+        4736
       ],
       "id": "094d4820-9799-4a35-8993-fcbf182a764d",
       "name": "oferta_tool"
@@ -210,8 +212,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        12624,
-        4336
+        12816,
+        4384
       ],
       "id": "40e22609-67d4-4945-b91b-26a5f8b7c127",
       "name": "ReAct Agent con Tools"
@@ -251,8 +253,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        13232,
-        4832
+        13424,
+        4880
       ],
       "name": "Call get_student_id_workflow",
       "id": "77509f8f-1032-4b89-85cf-fe1530fb08c2"
@@ -294,8 +296,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        13248,
-        4688
+        13440,
+        4736
       ],
       "id": "efad95e2-dd7e-41e7-b37b-55818adaa7eb",
       "name": "get_student_id_tool"
@@ -337,8 +339,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        13456,
-        4688
+        13648,
+        4736
       ],
       "id": "f32cd2fc-370d-4662-a2db-a8d60cfde896",
       "name": "get_student_courses_tool"
@@ -378,8 +380,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        13456,
-        4832
+        13648,
+        4880
       ],
       "name": "Call get_student_courses_workflow",
       "id": "6037a138-4f63-487c-ad2d-ca1ee22ea9e6"
@@ -398,8 +400,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
       "typeVersion": 1.3,
       "position": [
-        13664,
-        4688
+        13856,
+        4736
       ],
       "id": "02bea94f-678c-4c89-be17-907dfeee3e2f",
       "name": "Simple Vector Store"
@@ -447,8 +449,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        13664,
-        4848
+        13856,
+        4896
       ],
       "id": "7cbc500e-b50e-4a6b-ae4f-0c5412edb8d6",
       "name": "Embeddings OpenAI3",
@@ -499,8 +501,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        12848,
-        4832
+        13040,
+        4880
       ],
       "name": "Call get_calendar",
       "id": "419d8bb3-e6a8-47f2-ba51-1928ee9ee568"
@@ -527,8 +529,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        12864,
-        4688
+        13056,
+        4736
       ],
       "id": "5af0c854-69e7-4819-9f06-931e3ada31c5",
       "name": "get_calendar"
@@ -568,8 +570,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        12656,
-        4832
+        12848,
+        4880
       ],
       "name": "Call get_contacto",
       "id": "46124b7f-f51b-4580-98ca-5402ac15411a"
@@ -596,8 +598,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        12672,
-        4688
+        12864,
+        4736
       ],
       "id": "4c5f179c-9f1d-4540-b1a7-c6b504247113",
       "name": "Call 'get_contacto'"
@@ -609,8 +611,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        12976,
-        4336
+        13168,
+        4384
       ],
       "id": "deb3ae54-d147-4dad-8947-69b229d125d2",
       "name": "Code in JavaScript1"
@@ -625,8 +627,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
       "typeVersion": 1.3,
       "position": [
-        12832,
-        5872
+        13040,
+        5824
       ],
       "id": "576f74f4-cf60-4139-a49b-71c8fbe3ce19",
       "name": "Postgres PGVector Store3",
@@ -666,8 +668,8 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1.1,
       "position": [
-        12976,
-        6016
+        13184,
+        5968
       ],
       "id": "32ec8410-03c8-4422-97c8-6d08548858b4",
       "name": "Default Data Loader4"
@@ -680,8 +682,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        12816,
-        6096
+        13024,
+        6048
       ],
       "id": "01ddbfb1-6e1f-4817-851b-92f72435e7ef",
       "name": "Embeddings OpenAI",
@@ -701,8 +703,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        12448,
-        5872
+        12656,
+        5824
       ],
       "id": "cc0b378d-447b-47f2-9f2d-d84a233fd81f",
       "name": "Execute a SQL query2",
@@ -734,8 +736,8 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
       "typeVersion": 1.3,
       "position": [
-        13952,
-        4688
+        14144,
+        4736
       ],
       "id": "6385df79-d83f-43d0-85fa-0977db2048ec",
       "name": "consultar_documento_institucional",
@@ -754,8 +756,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        13952,
-        4864
+        14144,
+        4912
       ],
       "id": "c4561f0a-e413-4659-8414-b1ac3238f4bc",
       "name": "Embeddings OpenAI1",
@@ -912,7 +914,8 @@
     },
     {
       "parameters": {
-        "content": "## Scrape blog"
+        "content": "## Scrape blog",
+        "height": 80
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
@@ -1273,7 +1276,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "cb2f595f-c2de-46bf-a968-b135de57d126",
+  "versionId": "bb998500-bb5d-49e5-807f-7a57c1d5b387",
   "activeVersionId": null,
   "triggerCount": 2,
   "shared": [
