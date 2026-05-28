@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-28T15:56:59.548Z",
+  "updatedAt": "2026-05-28T16:07:11.132Z",
   "createdAt": "2026-05-28T15:25:41.809Z",
   "id": "IyaKbWLFL1q6NrUz",
   "name": "Upload Github",
@@ -176,7 +176,7 @@
             {
               "value1": "={{ $('Aggregate').item.json.name }}",
               "operation": "contains",
-              "value2": "={{ \"workflows/\" + $('Retrieve workflows').item.json.name.replace(/\\s+/g, '-').toLowerCase() + \"-\" + ($('Retrieve workflows').item.json.tags && $('Retrieve workflows').item.json.tags.length > 0 ? $('Retrieve workflows').item.json.tags[0].name : \"sin-tag\") + \".json\" }}"
+              "value2": "={{ $('Retrieve workflows').item.json.name.replace(/\\s+/g, '-').toLowerCase() + \"-\" + ($('Retrieve workflows').item.json.tags && $('Retrieve workflows').item.json.tags.length > 0 ? $('Retrieve workflows').item.json.tags[0].name : \"sin-tag\") + \".json\" }}"
             }
           ]
         }
@@ -405,7 +405,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e27ff24b-84df-4da0-8328-e4fe88ea661b",
+  "versionId": "59d85662-9cbe-4039-b28f-f87855422007",
   "activeVersionId": null,
   "triggerCount": 0,
   "shared": [
