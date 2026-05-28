@@ -1,0 +1,2115 @@
+{
+  "updatedAt": "2026-05-28T14:28:16.967Z",
+  "createdAt": "2026-05-28T14:28:16.967Z",
+  "id": "Lcgwmjey8vS6wpVd",
+  "name": "Bot CCD - Principal copy 6",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=Eres el asistente virtual del Centro de Competencias Digitales (CCD) \nde la Universidad Autónoma de Bucaramanga (UNAB).\n\nTu rol es ayudar a estudiantes de la UNAB con información sobre la \nRuta de Competencias Digitales, que se compone de tres pilares:\n1. Competencias Digitales Básicas\n2. Analítica y Contenido Digital\n3. Transformación Digital\n\n═══════════════════════════════════════════════════════════\nCUÁNDO NO usar herramientas (responde directamente):\n═══════════════════════════════════════════════════════════\n- Saludos: \"hola\", \"buenos días\", \"buenas tardes\", \"qué tal\"\n  → Responde con un saludo cordial y ofrece ayuda.\n  \n- Preguntas sobre ti mismo: \"¿qué eres?\", \"¿quién eres?\", \n  \"¿para qué sirves?\", \"¿qué puedes hacer?\", \"¿cómo funcionas?\"\n  → Preséntate como asistente del CCD y explica brevemente tus \n    capacidades: consultar info sobre la Ruta, cursos, fechas y \n    procesos académicos.\n\n- Despedidas y cortesías: \"gracias\", \"chao\", \"adiós\"\n  → Responde cordialmente.\n\n═══════════════════════════════════════════════════════════\nCUÁNDO SÍ usar herramientas:\n═══════════════════════════════════════════════════════════\nTienes acceso a tres herramientas oficiales:\n\n1. *PGVector (búsqueda semántica)*: úsala para preguntas sobre \n   conceptos, pilares, la Ruta, la Insignia, qué es el CCD, \n   funcionamiento académico, etc.\n\n2. *Google Sheets (calendario)*: úsala para preguntas sobre \n   fechas, inscripciones, eventos, prueba diagnóstica, cursos \n   vacacionales, calendario del CCD.\n\n3. *Postgres (SQL)*: úsala para datos puntuales del catálogo \n   de cursos por pilar, materias específicas, oferta vigente, \n   o datos del estudiante por su telegram_id.\n\nSi una pregunta necesita varias herramientas, úsalas en secuencia \ny combina los resultados.\n\n═══════════════════════════════════════════════════════════\nReglas generales:\n═══════════════════════════════════════════════════════════\n- Responde siempre en español, con tono amigable y cercano.\n- Sé conciso: respuestas de 2-4 párrafos máximo. Usa listas \n  cuando sea útil.\n- Puedes usar emojis con moderación para hacer la conversación \n  más amena 📚\n\n- Si después de consultar las herramientas no encuentras la \n  información, dilo honestamente: \"No encontré ese dato en mis \n  registros del CCD\" y sugiere contactar a ccdigital@unab.edu.co.\n\n- NUNCA inventes datos sobre cursos, fechas, costos o procesos. \n  Si no está en tus herramientas, no lo inventes.\n\n- Si el usuario usa lenguaje ofensivo, pídele respetuosamente \n  que mantenga un tono adecuado.\n\n- Para preguntas que requieren contexto del estudiante \n  (ej. \"¿qué cursos he tomado yo?\"), explica que necesitas \n  saber su id_estudiante o que su telegram_id esté registrado \n  en el sistema.\n\nTu historial de conversación es solo de referencia. Si el usuario realiza una pregunta sobre procesos o fechas, ignora los resultados de búsquedas anteriores y vuelve a invocar la herramienta de búsqueda, ya que la información podría haber sido actualizada\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        6608,
+        2480
+      ],
+      "id": "b1e2ebb7-3d5b-427e-8a64-25e8cf0e6db4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        },
+        "path": "8ab61280-71c3-4ea1-b6fa-462ef1309a86"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        7376,
+        2480
+      ],
+      "id": "005149e0-ccb4-4a59-9107-9f333e6a66a0",
+      "name": "Send a text message",
+      "webhookId": "8ab61280-71c3-4ea1-b6fa-462ef1309a86",
+      "credentials": {
+        "telegramApi": {
+          "id": "lNUr9Q6KZ7UwRpVI",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "meta/llama-3.3-70b-instruct",
+          "mode": "list",
+          "cachedResultName": "meta/llama-3.3-70b-instruct"
+        },
+        "responsesApiEnabled": false,
+        "options": {
+          "maxTokens": 500
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        6560,
+        2800
+      ],
+      "id": "c2c2a077-43b3-441d-8ec1-5644df398ce2",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Nuh7qgA01pbVqwK8",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Consulta el calendario académico oficial del Centro de Competencias Digitales (CCD) de la UNAB. Devuelve una lista de eventos con sus fechas, descripciones, pilares y tipos. \n\nUsa esta herramienta cuando el estudiante pregunte sobre:\n- Fechas de inscripciones, pruebas, cursos, ceremonias o eventos del CCD\n- Cuándo empieza o termina algo (cursos vacacionales, semestre regular, etc.)\n- Procesos académicos con fechas (inscripción, pago, paso a historia académica)\n- Precios o costos asociados a eventos\n\nNO uses esta herramienta para preguntas generales sobre el CCD que no tengan que ver con fechas o eventos.",
+        "url": "https://docs.google.com/spreadsheets/d/1T_8oUqHCEdhQTWkI7nqf4eJufQKSOwR9NUMUKkfhBlo/export?format=csv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        6736,
+        2816
+      ],
+      "id": "6676ca1c-fb5a-47ee-ae5a-3021db88f810",
+      "name": "consultar_calendario_ccd"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {},
+        "path": "c22feaa4-450c-403d-9a06-3ae5f64c0535"
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        5312,
+        2448
+      ],
+      "id": "d2ee0883-d94c-41d8-809c-3268700765a7",
+      "name": "Telegram Trigger",
+      "webhookId": "c22feaa4-450c-403d-9a06-3ae5f64c0535",
+      "credentials": {
+        "telegramApi": {
+          "id": "lNUr9Q6KZ7UwRpVI",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nv-embed-v1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        6848,
+        3136
+      ],
+      "id": "88094015-76a6-49b7-913f-b763d0262135",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "Nuh7qgA01pbVqwK8",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": "documentos_rag",
+        "embeddingBatchSize": 16,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        8688,
+        3120
+      ],
+      "id": "4a07163b-2e1c-4a07-9938-1fb9912b6bdd",
+      "name": "Postgres PGVector Store1",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "title",
+                "value": "Documento Institucional (Componente Competencias Digitales UNAB)"
+              },
+              {
+                "name": "category",
+                "value": "institucional"
+              },
+              {
+                "name": "file_name",
+                "value": "documento_institucional.pdf"
+              },
+              {
+                "name": "source_type",
+                "value": "file"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        8832,
+        3264
+      ],
+      "id": "ba1ce93f-c13d-4f54-abd9-673027b7b475",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nv-embed-v1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        8672,
+        3344
+      ],
+      "id": "fb1cf356-7ec4-4095-a6eb-88755b5505f9",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "Nuh7qgA01pbVqwK8",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Flujo sobre carga de embeddings al documento\n\n**Creado para cargar los embeddings en vectores de 4096**"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        8000,
+        2848
+      ],
+      "typeVersion": 1,
+      "id": "9944df42-11b2-4258-8834-6d30656b9c5c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json[\"message\"][\"chat\"][\"id\"] }}",
+        "contextWindowLength": 2
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        6624,
+        2960
+      ],
+      "id": "5e9498e1-721d-48bb-8c0c-73e656c40506",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        10672,
+        2240
+      ],
+      "id": "c1921a6c-114c-400e-8b65-50de90787a4e",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Flujo scraping\n\n**Crea el flujo para consultar lo relacionado con competencias digitales en la página web de la UNAB**"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        8048,
+        2320
+      ],
+      "typeVersion": 1,
+      "id": "b13c3881-9585-4000-b850-fdef90b18e99",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "url": "https://unab.edu.co/?s=competencias+digitales",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        10880,
+        2240
+      ],
+      "id": "93673bc5-70f4-40ce-87be-ab1c2379dbec",
+      "name": "HTTP Request",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "titulo",
+              "cssSelector": "h2.entry-title",
+              "returnArray": true
+            },
+            {
+              "key": "fecha",
+              "cssSelector": "span.published"
+            },
+            {
+              "key": "resumen",
+              "cssSelector": "p"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        11088,
+        2240
+      ],
+      "id": "ea2c1819-8512-4a33-9faf-912d9b2a16f2",
+      "name": "HTML",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "219dc568-3df1-413f-be76-3e474de4bc5d",
+              "leftValue": "={{ $json.titulo }}",
+              "rightValue": "Profesor",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "52e7981a-e9dd-46c3-a3cf-d58e6b226c51",
+              "leftValue": "={{ $json.titulo }}",
+              "rightValue": "Docentes",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        11488,
+        2240
+      ],
+      "id": "9a26a754-4a5c-4d94-8b04-5e9b882390c0",
+      "name": "Filter",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": "documentos_rag",
+        "embeddingBatchSize": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        11664,
+        2240
+      ],
+      "id": "2dba9859-052f-40fb-af73-9b7f12c445c3",
+      "name": "Postgres PGVector Store2",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "titulo",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        11296,
+        2240
+      ],
+      "id": "1d96feed-c7e8-4e9c-a31c-452d7606c117",
+      "name": "Split Out",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Esta herramienta debe usarse SIEMPRE que el usuario pregunte por procesos administrativos, fechas de inscripción, pasos a seguir para los cursos vacacionales, o información sobre la ruta de formación del Centro de Competencias Digitales (CCD). Si la pregunta es sobre estos temas, consulta esta herramienta antes de responder. Si encuentra info que tenga enlaces de la UNAB, priorícela para responder sobre las demás (es decir, no la use, en caso de que haya de la web oficial de la UNAB; priorice siempre la de la WEB; ELIMINE LAS OTRAS FUENTES SI ENCUENTRA DE LA WEB).",
+        "tableName": "documentos_rag",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        6896,
+        2944
+      ],
+      "id": "9ade2570-141d-466d-a936-b81ab1fd66ee",
+      "name": "buscar_informacion_fuentes_externas",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    ce.nombre_materia,\n    ce.codigo_curso,\n    COALESCE(rn.nota, 'Sin nota registrada') AS nota,\n    rn.fecha_registro\nFROM cursos_estudiantes ce\nLEFT JOIN registro_nota rn \n    ON ce.id_estudiante = rn.id_estudiante \n    AND ce.codigo_materia = rn.codigo_materia\nWHERE ce.id_estudiante = {{ $fromAI(\"id_estudiante\") }}::varchar;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.6,
+      "position": [
+        7024,
+        2672
+      ],
+      "id": "a9906541-e936-4ed9-b7a6-4fb072f3de13",
+      "name": "consultar_datos_estudiante",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        7680,
+        2512
+      ],
+      "id": "31650e68-1e70-43f1-89e7-55e12f47f364",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "https://unab.edu.co/?s=competencias+digitales",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        7888,
+        2512
+      ],
+      "id": "0a3c064a-0766-4aaa-9d28-f573eee566cb",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "titulo",
+              "cssSelector": "h2.entry-title",
+              "returnArray": true
+            },
+            {
+              "key": "fecha",
+              "cssSelector": "span.published",
+              "returnArray": true
+            },
+            {
+              "key": "resumen",
+              "cssSelector": "p:not(.post-meta)",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        8096,
+        2512
+      ],
+      "id": "e2623761-4fb4-4185-a083-80adf991f1f3",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "219dc568-3df1-413f-be76-3e474de4bc5d",
+              "leftValue": "={{ $json.titulo }}",
+              "rightValue": "Profesor",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "52e7981a-e9dd-46c3-a3cf-d58e6b226c51",
+              "leftValue": "={{ $json.titulo }}",
+              "rightValue": "Docentes",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        8464,
+        2512
+      ],
+      "id": "259fd765-5638-4ec9-bd84-9949bdd5f6ff",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $('HTML1').first().json;\nconst titulos = data.titulo || [];\nconst fechas = data.fecha || [];\nconst resumenes = data.resumen || [];\nconst resultados = [];\n\ntitulos.forEach((titulo, index) => {\n    // ── 1. Limpiar título ──────────────────────────────────────────\n    const txtLimpio = String(titulo)\n        .split(/\\[/)[0]\n        .replace(/\\n/g, ' ')\n        .trim();\n\n    // ── 2. Filtro de exclusión ─────────────────────────────────────\n    if (txtLimpio.includes(\"Profesor\") || txtLimpio.includes(\"Docente\")) {\n        return;\n    }\n\n    // ── 3. Fecha ───────────────────────────────────────────────────\n    const fecha = (fechas[index] || \"May 27, 2026\").trim();\n\n    // ── 4. Resumen ─────────────────────────────────────────────────\n    let resumen = (resumenes[index] || \"Contenido institucional.\").toString();\n    resumen = resumen.replace(/[\\r\\n]+/g, ' ').replace(/\\s+/g, ' ').trim();\n    if (resumen.includes(\"|\") || resumen.length < 20) {\n        resumen = \"Noticia institucional sobre las Competencias Digitales de la UNAB.\";\n    }\n\n    // ── 5. Hash (título + fecha para distinguir mismos títulos en fechas distintas) ──\n    const hashInput = txtLimpio + '||' + fecha;  // ← CAMBIO\n    let hash = 0;\n    for (let i = 0; i < hashInput.length; i++) {\n        hash = ((hash << 5) - hash) + hashInput.charCodeAt(i);\n        hash = hash | 0;\n    }\n    const hashFinal = Math.abs(hash).toString(16);\n\n    // ── 6. Push ────────────────────────────────────────────────────\n    resultados.push({\n        json: {\n            text: txtLimpio,\n            contentHash: hashFinal,\n            metadata: {\n                source_type: \"web\",\n                title: txtLimpio,\n                url: \"https://www.unab.edu.co/?s=competencias+digitales\",\n                category: \"Web Scraping\",\n                fecha: fecha,\n                resumen: resumen,\n                content_hash: hashFinal\n            }\n        }\n    });\n});\n\nreturn resultados;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        8672,
+        2512
+      ],
+      "id": "33477820-9105-46b6-988b-161958c7a32a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## Flujo principal\n\n**Crea el flujo para consultar lo relacionado con competencias digitales**"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        5200,
+        2192
+      ],
+      "typeVersion": 1,
+      "id": "3714552a-9544-487c-a9be-2116cf7fe336",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        7888,
+        3120
+      ],
+      "id": "60b745bc-3c6d-4d3a-88df-3bdcc293bfb9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/inicio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c78b0dd9-f846-4cf5-a358-20a5227bec79"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "inicio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "059a0226-d57b-4184-8c6c-a6981764ec42",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/calendario",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "calendario"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "27c7e3d7-2483-4ae7-96a5-17d527c50d63",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/miscursos",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "mis_cursos"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "583942fd-ca5a-42b5-9fa5-5f5152cf3671",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/oferta",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "oferta"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a13a06d3-c7b2-45b2-a569-09bf6f45ee64",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/insignia",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "insignia"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "d3616725-4750-487b-8997-6731cb499ee3",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/info",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "info"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "fcbb4f39-fd85-482c-b321-7c5671e6e3f1",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/ayuda",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ayuda"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "b08e7294-d6f4-4ea6-9f95-c235a8542dbb",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/cancelar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "cancelar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c477c8fe-6d0b-4e36-8915-17f90d49b53d",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "^[0-9]{8}$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "posible_id"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        5600,
+        2208
+      ],
+      "id": "81d5b6e1-dfc0-46e4-b514-e4f34b0d3d19",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9f87a56-f73e-4e33-adc0-574afb64dd28",
+              "name": "output",
+              "value": "=📍 *Centro de Competencias Digitales (CCD)*\nUniversidad Autónoma de Bucaramanga\n\n🏢 Ubicación: Bloque L, piso 2\n📧 Correo: ccdigital@unab.edu.co\n📞 Teléfono: (607) 6436111, extensiones 1807 / 1644\n🌐 Sitio web: www.unab.edu.co\n\n💡 La Ruta de Competencias Digitales se compone de tres pilares formativos:\n\n1. Competencias Digitales Básicas\n2. Analítica y Contenido Digital\n3. Transformación Digital\n\nAl completar los tres cursos recibes la Insignia de Competencias Digitales, un reconocimiento que fortalece tu empleabilidad.\n\n📌 Recuerda: cuando contactes al CCD, incluye tu ID estudiantil, programa, semestre y modalidad.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        1856
+      ],
+      "id": "38f0b21c-a630-4e29-be37-575449aedbc2",
+      "name": "info"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "51e637b4-ca49-4ca4-9a72-65918bbe0c90",
+              "name": "output",
+              "value": "=🤖 ¿CÓMO USAR ESTE ASISTENTE?\n\nPuedes interactuar conmigo de dos formas:\n\n1️⃣ COMANDOS RÁPIDOS (presiona el botón Menú o escríbelos):\n\n/inicio - Reinicia la conversación\n/calendario - Fechas académicas\n/info - Información de contacto del CCD\n/insignia - Sobre la Insignia de Competencias Digitales\n/mis_cursos - Tus cursos tomados\n/oferta - Cursos disponibles este semestre\n\n2️⃣ PREGUNTAS EN LENGUAJE NATURAL — Escríbeme directamente cualquier duda. Por ejemplo:\n\n¿Qué cursos hay en el pilar de Analítica?\n¿Cuándo es la prueba diagnóstica?\n¿Cuánto cuesta un curso vacacional?\n\n¿Listo/a para empezar? Pregúntame lo que necesites.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        2016
+      ],
+      "id": "fa5a43c4-b2e4-4a69-8afd-8bba7865e14b",
+      "name": "ayuda"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "45fb93a0-7ddf-4ad0-b782-252799403487",
+              "name": "output",
+              "value": "=🏅 INSIGNIA DE COMPETENCIAS DIGITALES\n\nEs un reconocimiento institucional que otorga la UNAB a los estudiantes que completan los tres pilares de la Ruta de Competencias Digitales.\n\nPara obtenerla necesitas aprobar un curso de cada pilar:\n\n1️⃣ COMPETENCIAS DIGITALES BÁSICAS\nCultura Digital, Vida en Línea, Interacción Digital\n\n2️⃣ ANALÍTICA Y CONTENIDO DIGITAL\nWord, PowerPoint, Habilidades en Analítica Digital, Marca Personal Digital, Creación de Contenidos Digitales\n\n3️⃣ TRANSFORMACIÓN DIGITAL\nExcel, IA Generativa, Marco Legal Digital, Cuidado y Bienestar Digital\n\n💡 La insignia certifica tus habilidades digitales y fortalece tu perfil profesional ante empleadores.\n\n¿Quieres saber qué cursos has tomado? Escribe /mis_cursos",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        1712
+      ],
+      "id": "644f5cc2-833f-47d3-8b74-93e99c9befb6",
+      "name": "insignia"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "22ce32fe-fae0-416e-887e-5efe03736dff",
+              "name": "output",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        1552
+      ],
+      "id": "9d300036-a68a-4ea2-82fa-6a2a9ea01bfa",
+      "name": "oferta"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e46d8394-6743-4ed3-85d0-6d70af6daf95",
+              "name": "output",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        1248
+      ],
+      "id": "a5700a3d-c3ba-4e6a-ac66-c5cd55e360a7",
+      "name": "calendario"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7a86dc6d-966d-4b2f-a5b7-d111e45521a3",
+              "name": "output",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        1392
+      ],
+      "id": "ee7ee778-1353-4620-ad78-0b2b4ff14ddf",
+      "name": "mis_cursos"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4ff04aec-852a-40c0-9b9e-a791bf1412da",
+              "name": "output",
+              "value": "=¡Bienvenido/a al asistente virtual del Centro de Competencias Digitales (CCD) de la UNAB! 👋\n\nSoy un chatbot diseñado para acompañarte en tu Ruta de Competencias Digitales. Estos son los comandos que puedes usar:\n\n📅 /calendario - Consultar fechas académicas importantes\n🎓 /mis_cursos - Ver los cursos que has tomado\n📚 /oferta - Conocer los cursos disponibles este semestre\n🏅 /insignia - Información sobre la Insignia de Competencias Digitales\nℹ️ /info - Datos de contacto del CCD\n❓ /ayuda - Aprender a usar este asistente\n\nTambién puedes escribirme libremente cualquier pregunta sobre el CCD, los pilares, los cursos o los procesos académicos.\n\n¿En qué puedo ayudarte hoy?",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6192,
+        1072
+      ],
+      "id": "c8d26d63-3a35-49a6-a6c4-e546cf1a45f8",
+      "name": "inicio"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT nrc, nombre_curso, pilar, modalidad, horario, fecha_inicio, fecha_fin, precio\nFROM oferta_vigente\nORDER BY pilar, nrc;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6400,
+        1552
+      ],
+      "id": "a373408b-2ec1-4f71-ac32-fab723c119e0",
+      "name": "Execute a SQL query2",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recibimos los 6 cursos del nodo Postgres anterior\nconst cursos = $input.all();\n\n// Función para formatear fecha YYYY-MM-DD desde ISO\nfunction formatearFecha(fechaISO) {\n  const fecha = new Date(fechaISO);\n  const dia = String(fecha.getUTCDate()).padStart(2, '0');\n  const mes = String(fecha.getUTCMonth() + 1).padStart(2, '0');\n  const anio = fecha.getUTCFullYear();\n  return `${dia}/${mes}/${anio}`;\n}\n\n// Función para formatear precio\nfunction formatearPrecio(precio) {\n  const num = Math.round(parseFloat(precio));\n  return `$${num.toLocaleString('es-CO')}`;\n}\n\n// Agrupar cursos por pilar\nconst porPilar = {};\nfor (const item of cursos) {\n  const c = item.json;\n  if (!porPilar[c.pilar]) {\n    porPilar[c.pilar] = [];\n  }\n  porPilar[c.pilar].push(c);\n}\n\n// Armar el mensaje\nlet mensaje = \"📅 CURSOS DISPONIBLES ESTE SEMESTRE\\n\\n\";\nmensaje += \"Cursos Vacacionales Intensivos 2026-1\\n\";\nmensaje += \"Inscripción: hasta el 5 de junio de 2026\\n\\n\";\nmensaje += \"━━━━━━━━━━━━━━━━━━━\\n\\n\";\n\nfor (const pilar in porPilar) {\n  mensaje += `🎓 ${pilar.toUpperCase()}\\n\\n`;\n  \n  for (const curso of porPilar[pilar]) {\n    mensaje += `📘 ${curso.nombre_curso}\\n`;\n    mensaje += `🔢 NRC: ${curso.nrc}\\n`;\n    mensaje += `🏷️ Modalidad: ${curso.modalidad}\\n`;\n    mensaje += `🕐 Horario: ${curso.horario}\\n`;\n    mensaje += `📆 ${formatearFecha(curso.fecha_inicio)} al ${formatearFecha(curso.fecha_fin)}\\n`;\n    mensaje += `💰 ${formatearPrecio(curso.precio)} COP\\n\\n`;\n  }\n  \n  mensaje += \"━━━━━━━━━━━━━━━━━━━\\n\\n\";\n}\n\nmensaje += \"📋 CÓMO INSCRIBIRTE:\\n\\n\";\nmensaje += \"1. Ingresa a Cosmos con tu cuenta UNAB\\n\";\nmensaje += \"2. Haz clic en Alumnos\\n\";\nmensaje += \"3. Selecciona Inscripción\\n\";\nmensaje += \"4. Elige el período académico\\n\";\nmensaje += \"5. Selecciona Agregar/Eliminar Cursos\\n\";\nmensaje += \"6. Registra el NRC del curso que deseas\\n\\n\";\nmensaje += \"💳 CÓMO PAGAR:\\n\\n\";\nmensaje += \"1. En Cosmos, selecciona Cupón de pago\\n\";\nmensaje += \"2. Entra a Cupones de pagos\\n\";\nmensaje += \"3. Selecciona Consultar en Matrícula\\n\";\nmensaje += \"4. Genera el cupón o paga en línea por PSE\\n\\n\";\nmensaje += \"⚠️ Recuerda: los cursos solo se abren si cumplen con el número mínimo de estudiantes inscritos y pago registrado dentro de las fechas establecidas.\\n\\n\";\nmensaje += \"¿Necesitas más ayuda? Escribe /info\";\n\n// Devolvemos el mensaje en el campo 'output' (igual que los Set anteriores)\nreturn [{ json: { output: mensaje } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6608,
+        1552
+      ],
+      "id": "57443e41-0bd1-4332-803f-d8c5e9cf0555",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "url": "https://docs.google.com/spreadsheets/d/1T_8oUqHCEdhQTWkI7nqf4eJufQKSOwR9NUMUKkfhBlo/export?format=csv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        6400,
+        1248
+      ],
+      "id": "65145457-6b17-47f5-80f1-f5218c39af8c",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// El CSV viene en el campo 'data' del HTTP Request\nconst csvRaw = $input.first().json.data || $input.first().json.body || $input.first().json;\n\n// Convertir a string si llega como objeto\nconst csvText = typeof csvRaw === 'string' ? csvRaw : JSON.stringify(csvRaw);\n\n// Parsear el CSV manualmente\nconst lineas = csvText.split('\\n').filter(l => l.trim() !== '');\n\n// La primera línea son los headers\nconst headers = lineas[0].split(',').map(h => h.trim().toLowerCase());\n\n// Parsear filas\nconst eventos = [];\nfor (let i = 1; i < lineas.length; i++) {\n  const valores = lineas[i].split(',').map(v => v.trim().replace(/^\"|\"$/g, ''));\n  const evento = {};\n  headers.forEach((h, idx) => {\n    evento[h] = valores[idx] || '';\n  });\n  eventos.push(evento);\n}\n\n// Función robusta: convierte cualquier formato de fecha a un número para ordenar\nfunction fechaANumero(fechaStr) {\n  if (!fechaStr) return 0;\n  \n  // Formato YYYY-MM-DD (ISO)\n  let match = fechaStr.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);\n  if (match) {\n    return parseInt(match[1] + match[2] + match[3]);\n  }\n  \n  // Formato DD/MM/YY o DD/MM/YYYY\n  match = fechaStr.match(/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{2,4})/);\n  if (match) {\n    let anio = match[3];\n    if (anio.length === 2) anio = '20' + anio; // 26 -> 2026\n    const mes = match[2].padStart(2, '0');\n    const dia = match[1].padStart(2, '0');\n    return parseInt(anio + mes + dia);\n  }\n  \n  return 0;\n}\n\n// Función para formatear fecha bonita\nfunction formatearFecha(fechaStr) {\n  if (!fechaStr) return fechaStr;\n  \n  // Si ya está en DD/MM/YY o DD/MM/YYYY, normalizar a DD/MM/YYYY\n  let match = fechaStr.match(/^(\\d{1,2})\\/(\\d{1,2})\\/(\\d{2,4})/);\n  if (match) {\n    let anio = match[3];\n    if (anio.length === 2) anio = '20' + anio;\n    const mes = match[2].padStart(2, '0');\n    const dia = match[1].padStart(2, '0');\n    return `${dia}/${mes}/${anio}`;\n  }\n  \n  // Si está en YYYY-MM-DD\n  match = fechaStr.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);\n  if (match) {\n    return `${match[3]}/${match[2]}/${match[1]}`;\n  }\n  \n  return fechaStr;\n}\n\n// Ordenar eventos por fecha real\neventos.sort((a, b) => {\n  return fechaANumero(a.fecha) - fechaANumero(b.fecha);\n});\n\n// Armar el mensaje\nlet mensaje = \"📅 CALENDARIO ACADÉMICO DEL CCD\\n\\n\";\nmensaje += \"Fechas importantes del Centro de Competencias Digitales:\\n\\n\";\nmensaje += \"━━━━━━━━━━━━━━━━━━━\\n\\n\";\n\nfor (const evento of eventos) {\n  const nombre = evento.evento || 'Evento';\n  const fecha = formatearFecha(evento.fecha);\n  const descripcion = evento.descripcion || '';\n  const tipo = evento.tipo || '';\n  const pilar = evento.pilar || '';\n  \n  mensaje += `📌 ${nombre}\\n`;\n  mensaje += `📆 ${fecha}\\n`;\n  if (descripcion) mensaje += `📝 ${descripcion}\\n`;\n  if (tipo) mensaje += `🏷️ Tipo: ${tipo}\\n`;\n  if (pilar && pilar.toLowerCase() !== 'todos' && pilar.toLowerCase() !== 'general') {\n    mensaje += `🎓 ${pilar}\\n`;\n  }\n  mensaje += `\\n`;\n}\n\nmensaje += \"━━━━━━━━━━━━━━━━━━━\\n\\n\";\nmensaje += \"💡 Para más información sobre algún evento, pregúntame directamente.\\n\";\nmensaje += \"📧 Contacto: ccdigital@unab.edu.co\";\n\nreturn [{ json: { output: mensaje } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6608,
+        1248
+      ],
+      "id": "e4fb8acb-131a-4f32-bbfa-e67906eac731",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO sesiones (id_sesion, telegram_id, telegram_chat_id, estado, contexto_json)\nVALUES (\n  'miscursos_{{ $('Telegram Trigger').item.json.message.from.id }}_{{ Date.now() }}',\n  {{ $('Telegram Trigger').item.json.message.from.id }},\n  '{{ $('Telegram Trigger').item.json.message.chat.id }}',\n  'esperando_id',\n  '{\"comando\": \"miscursos\"}'::jsonb\n)\nON CONFLICT (id_sesion) DO NOTHING;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6400,
+        1392
+      ],
+      "id": "091dff2c-ab51-4abf-a223-02703bfbdfe5",
+      "name": "abrir_sesion",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a51c5306-33bc-471e-8caf-4e2d9b9327d6",
+              "name": "output",
+              "value": "=🔐 Para mostrarte tus cursos necesito tu ID estudiantil.\n\nPor favor, escribe tu ID en el siguiente mensaje (ejemplo: 20220003).\n\n⚠️ Aviso de privacidad: la información que solicitas con tu ID es responsabilidad tuya. El CCD no se hace responsable de consultas realizadas con IDs ajenos al de quien escribe.\n\nSi te equivocas o quieres cancelar, escribe /cancelar",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6608,
+        1392
+      ],
+      "id": "e6a83d47-8b47-4cdd-8163-a6c0964aa723",
+      "name": "pedir_id"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE sesiones \nSET estado = 'cancelada', \n    ultima_actividad = NOW()\nWHERE telegram_id = {{ $('Telegram Trigger').item.json.message.from.id }}\n  AND estado = 'esperando_id';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6192,
+        2160
+      ],
+      "id": "9a2d9f66-2aaf-4c5c-89b4-0efb63c04c10",
+      "name": "cerrar_sesion",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b16e299-ff80-4d36-ab20-3ef0a49d830e",
+              "name": "output",
+              "value": "=❌ Consulta cancelada.\n\nSi necesitas ver tus cursos del CCD, escribe /miscursos en cualquier momento.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        6400,
+        2160
+      ],
+      "id": "b0f46712-f9be-4d89-b79c-dc10408cbb63",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT COUNT(*) AS sesiones_activas\nFROM sesiones\nWHERE telegram_id = {{ $('Telegram Trigger').item.json.message.from.id }}\n  AND estado = 'esperando_id';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6192,
+        2320
+      ],
+      "id": "2568a788-3dca-401a-8dfb-34ebfd9a1273",
+      "name": "verificar_sesion",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dae5442b-5d38-4f52-9bb8-73bb7c373c43",
+              "leftValue": "={{ $json.sesiones_activas }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        6400,
+        2320
+      ],
+      "id": "0910ee97-33dd-4ac5-a182-50406afa0e49",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH cerrar_sesion AS (\n  UPDATE sesiones \n  SET estado = 'cerrada', \n      ultima_actividad = NOW(),\n      id_estudiante = CASE \n        WHEN EXISTS (SELECT 1 FROM estudiante WHERE id_estudiante = '{{ $('Telegram Trigger').item.json.message.text }}')\n        THEN '{{ $('Telegram Trigger').item.json.message.text }}'\n        ELSE NULL\n      END\n  WHERE telegram_id = {{ $('Telegram Trigger').item.json.message.from.id }}\n    AND estado = 'esperando_id'\n  RETURNING id_sesion\n)\nSELECT \n  e.id_estudiante,\n  e.nombre_completo,\n  e.programa_academico,\n  e.semestre_actual,\n  cm.nombre_materia,\n  cm.pilar,\n  ce.semestre AS periodo_tomado,\n  ce.anio AS anio_tomado,\n  rn.nota,\n  '{{ $('Telegram Trigger').item.json.message.text }}' AS id_consultado,\n  (SELECT COUNT(*) FROM cerrar_sesion) AS sesion_cerrada\nFROM estudiante e\nLEFT JOIN cursos_estudiantes ce ON ce.id_estudiante = e.id_estudiante\nLEFT JOIN catalogo_materias_ccd cm ON cm.codigo_materia = ce.codigo_materia\nLEFT JOIN registro_nota rn ON rn.id_estudiante = ce.id_estudiante \n                            AND rn.codigo_materia = ce.codigo_materia\nWHERE e.id_estudiante = '{{ $('Telegram Trigger').item.json.message.text }}'\nORDER BY cm.pilar, ce.anio, ce.semestre;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6592,
+        2304
+      ],
+      "id": "37b29c3e-f8be-4e13-bdca-65d579ccd50b",
+      "name": "buscar_y_cerrar",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const filas = $input.all();\n\n// Obtener el ID que el usuario consultó\nconst idConsultado = $('Telegram Trigger').first().json.message.text;\n\n// Caso 1: el ID no existe en la BD (0 filas O primera fila con nombre null)\nif (filas.length === 0 || !filas[0].json.nombre_completo) {\n  const mensaje = `🤔 No encontré ningún estudiante con el ID ${idConsultado}.\\n\\n` +\n                  \"Verifica que el ID esté correcto y vuelve a intentar.\\n\\n\" +\n                  \"Si crees que es un error, comunícate con el CCD:\\n\" +\n                  \"📧 ccdigital@unab.edu.co\\n\" +\n                  \"📞 (607) 6436111, ext. 1807 / 1644\\n\\n\" +\n                  \"Para volver a consultar, escribe /miscursos\";\n  return [{ json: { output: mensaje } }];\n}\n\n// Tomar los datos del estudiante de la primera fila\nconst primerRegistro = filas[0].json;\nconst nombreEstudiante = primerRegistro.nombre_completo;\nconst programa = primerRegistro.programa_academico;\nconst semestre = primerRegistro.semestre_actual;\n\n// Filtrar solo cursos reales (donde nombre_materia no es null)\nconst cursosReales = filas.filter(f => f.json.nombre_materia !== null && f.json.nombre_materia !== undefined);\n\n// Caso 2: el estudiante existe pero no tiene cursos del CCD\nif (cursosReales.length === 0) {\n  let mensaje = `📚 CURSOS DEL CCD\\n\\n`;\n  mensaje += `Datos del estudiante ${idConsultado}:\\n\\n`;\n  mensaje += `👤 ${nombreEstudiante}\\n`;\n  mensaje += `🎓 Programa: ${programa}\\n`;\n  mensaje += `📖 Semestre actual: ${semestre}\\n\\n`;\n  mensaje += `━━━━━━━━━━━━━━━━━━━\\n\\n`;\n  mensaje += `Este estudiante aún no tiene cursos del CCD registrados.\\n\\n`;\n  mensaje += `💡 Para ver los cursos disponibles este semestre, escribe /oferta\\n`;\n  mensaje += `🏅 Para conocer la Insignia de Competencias Digitales, escribe /insignia\\n\\n`;\n  mensaje += `⚠️ Aviso: la información mostrada corresponde al ID ${idConsultado}. La consulta es responsabilidad del usuario que la solicita.`;\n  return [{ json: { output: mensaje } }];\n}\n\n// Caso 3: el estudiante existe y tiene cursos — agrupar por pilar\nconst porPilar = {};\nfor (const f of cursosReales) {\n  const c = f.json;\n  const pilar = c.pilar || 'Sin pilar';\n  if (!porPilar[pilar]) {\n    porPilar[pilar] = [];\n  }\n  porPilar[pilar].push(c);\n}\n\n// Detectar pilares completados y faltantes\nconst pilaresCompletados = Object.keys(porPilar);\nconst todosPilares = [\n  'Competencias Digitales Básicas',\n  'Analítica y Contenido Digital',\n  'Transformación Digital'\n];\nconst pilaresFaltantes = todosPilares.filter(p => !pilaresCompletados.includes(p));\n\n// Armar mensaje\nlet mensaje = `📚 CURSOS DEL CCD\\n\\n`;\nmensaje += `Historial académico del estudiante ${idConsultado}:\\n\\n`;\nmensaje += `👤 ${nombreEstudiante}\\n`;\nmensaje += `🎓 Programa: ${programa}\\n`;\nmensaje += `📖 Semestre actual: ${semestre}\\n\\n`;\nmensaje += `━━━━━━━━━━━━━━━━━━━\\n\\n`;\n\nfor (const pilar in porPilar) {\n  mensaje += `🎯 ${pilar.toUpperCase()}\\n\\n`;\n  for (const curso of porPilar[pilar]) {\n    const nota = curso.nota || 'Sin nota registrada';\n    mensaje += `✅ ${curso.nombre_materia}\\n`;\n    mensaje += `   📅 Cursado: ${curso.periodo_tomado}\\n`;\n    mensaje += `   📊 Nota: ${nota}\\n\\n`;\n  }\n}\n\nmensaje += `━━━━━━━━━━━━━━━━━━━\\n\\n`;\n\n// Resumen del progreso hacia la insignia\nif (pilaresFaltantes.length === 0) {\n  mensaje += `🏅 ¡FELICITACIONES! Este estudiante ha completado los tres pilares.\\n`;\n  mensaje += `Tiene derecho a la Insignia de Competencias Digitales.\\n\\n`;\n  mensaje += `💡 Si tienes dudas sobre cómo recibirla, escribe /info\\n\\n`;\n} else {\n  mensaje += `🎯 Para obtener la Insignia faltan estos pilares:\\n\\n`;\n  for (const p of pilaresFaltantes) {\n    mensaje += `• ${p}\\n`;\n  }\n  mensaje += `\\n💡 Para ver cursos disponibles este semestre, escribe /oferta\\n\\n`;\n}\n\nmensaje += `⚠️ Aviso: la información mostrada corresponde al ID ${idConsultado}. La consulta es responsabilidad del usuario que la solicita.`;\n\nreturn [{ json: { output: mensaje } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6800,
+        2304
+      ],
+      "id": "d4c9e0bc-d48e-4e55-9141-8d2420c74897",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, text\nFROM documentos_rag\nWHERE metadata->>'file_name' = 'documento_institucional.pdf'\n  AND metadata->>'content_hash' IS NULL;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        8304,
+        3120
+      ],
+      "id": "2c404334-423f-409c-ad69-70fc4dcd7e3c",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nv-embed-v1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        11280,
+        2496
+      ],
+      "id": "7e1babba-afd8-47f7-b84a-d34a6db1b64f",
+      "name": "Embeddings OpenAI4",
+      "credentials": {
+        "openAiApi": {
+          "id": "Nuh7qgA01pbVqwK8",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        11440,
+        2496
+      ],
+      "id": "6712f655-8060-43ea-99a0-986e6091a297",
+      "name": "Default Data Loader1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nv-embed-v1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        9216,
+        2800
+      ],
+      "id": "b0bbe0f2-e181-4582-9f31-91b478a3eeb2",
+      "name": "Embeddings OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "Nuh7qgA01pbVqwK8",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "text",
+                "value": "={{ $('Code in JavaScript').item.json.text }}"
+              },
+              {
+                "name": "source_type",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.source_type }}"
+              },
+              {
+                "name": "title",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.title }}"
+              },
+              {
+                "name": "url",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.url }}"
+              },
+              {
+                "name": "category",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.category }}"
+              },
+              {
+                "name": "fecha",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.fecha }}"
+              },
+              {
+                "name": "resumen",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.resumen }}"
+              },
+              {
+                "name": "content_hash",
+                "value": "={{ $('Code in JavaScript').item.json.metadata.content_hash }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        9360,
+        2800
+      ],
+      "id": "a5597c41-e256-4786-b1dc-b501e39abe87",
+      "name": "Default Data Loader2"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": "documentos_rag",
+        "embeddingBatchSize": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        9232,
+        2608
+      ],
+      "id": "59c80fe5-7c7c-46dc-a676-7b3d4681be48",
+      "name": "Postgres PGVector Store",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "titulo",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "fecha, resumen",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        8304,
+        2512
+      ],
+      "id": "e3c41dd9-1c0a-46a8-9436-7f8be69548ea",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT COUNT(*) AS total\nFROM documentos_rag\nWHERE metadata->>'content_hash' = '{{ $json.contentHash }}'",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        8880,
+        2512
+      ],
+      "id": "45cd7ca6-5a79-4ee5-859b-a0b0dc8ff5f2",
+      "name": "Execute a SQL query1",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b560e3de-c67f-4c95-a97b-eb430ae4af3c",
+              "leftValue": "={{ $json.total }}",
+              "rightValue": "0",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        9088,
+        2512
+      ],
+      "id": "f5f74283-59d3-4756-a4e5-46804121a813",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        9360,
+        2448
+      ],
+      "id": "c60d32bd-02f6-4661-a95f-5f2fb4ff3d49",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar_calendario_ccd": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "buscar_informacion_fuentes_externas",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Postgres PGVector Store1",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Postgres PGVector Store2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_informacion_fuentes_externas": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar_datos_estudiante": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "inicio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "calendario",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "mis_cursos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "oferta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "insignia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "info",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ayuda",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "cerrar_sesion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "verificar_sesion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "info": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ayuda": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insignia": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "oferta": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calendario": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "mis_cursos": {
+      "main": [
+        [
+          {
+            "node": "abrir_sesion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inicio": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "abrir_sesion": {
+      "main": [
+        [
+          {
+            "node": "pedir_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pedir_id": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cerrar_sesion": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "verificar_sesion": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "buscar_y_cerrar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_y_cerrar": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Postgres PGVector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI4": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "Postgres PGVector Store2",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader2": {
+      "ai_document": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "193f9a1f-d859-4130-8180-69eb46512344",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-28T14:28:16.967Z",
+      "createdAt": "2026-05-28T14:28:16.967Z",
+      "role": "workflow:owner",
+      "workflowId": "Lcgwmjey8vS6wpVd",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
