@@ -1,0 +1,149 @@
+{
+  "updatedAt": "2026-05-27T20:40:56.637Z",
+  "createdAt": "2026-05-27T20:39:48.540Z",
+  "id": "RVjc1KtVPzycjCZn",
+  "name": "get_student_courses_workflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "\nSELECT \n  e.id_estudiante,\n  e.nombre_completo,\n  e.programa_academico,\n  e.semestre_actual,\n  cm.nombre_materia,\n  cm.pilar,\n  ce.semestre AS periodo_tomado,\n  ce.anio AS anio_tomado,\n  rn.nota\nFROM estudiante e\nLEFT JOIN cursos_estudiantes ce ON ce.id_estudiante = e.id_estudiante\nLEFT JOIN catalogo_materias_ccd cm ON cm.codigo_materia = ce.codigo_materia\nLEFT JOIN registro_nota rn ON rn.id_estudiante = ce.id_estudiante \n                            AND rn.codigo_materia = ce.codigo_materia\nWHERE e.id_estudiante = '{{ $json.student_id }}'\nORDER BY cm.pilar, ce.anio, ce.semestre;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        6208,
+        2880
+      ],
+      "id": "61555f31-0919-4845-b63a-fdb7dfb07c30",
+      "name": "get_student_courses",
+      "credentials": {
+        "postgres": {
+          "id": "7jxDPROgZ6368UGX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "student_id"
+            }
+          ]
+        }
+      },
+      "id": "eb3671ef-ea7f-48c8-a464-b783d726a57c",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        6000,
+        2880
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "get_student_courses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "88914f46-8d7f-4b59-be59-3459f326e07d",
+  "activeVersionId": "88914f46-8d7f-4b59-be59-3459f326e07d",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-27T20:39:48.540Z",
+      "createdAt": "2026-05-27T20:39:48.540Z",
+      "role": "workflow:owner",
+      "workflowId": "RVjc1KtVPzycjCZn",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-27T20:41:06.544Z",
+    "createdAt": "2026-05-27T20:40:56.638Z",
+    "versionId": "88914f46-8d7f-4b59-be59-3459f326e07d",
+    "workflowId": "RVjc1KtVPzycjCZn",
+    "nodes": [
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "\nSELECT \n  e.id_estudiante,\n  e.nombre_completo,\n  e.programa_academico,\n  e.semestre_actual,\n  cm.nombre_materia,\n  cm.pilar,\n  ce.semestre AS periodo_tomado,\n  ce.anio AS anio_tomado,\n  rn.nota\nFROM estudiante e\nLEFT JOIN cursos_estudiantes ce ON ce.id_estudiante = e.id_estudiante\nLEFT JOIN catalogo_materias_ccd cm ON cm.codigo_materia = ce.codigo_materia\nLEFT JOIN registro_nota rn ON rn.id_estudiante = ce.id_estudiante \n                            AND rn.codigo_materia = ce.codigo_materia\nWHERE e.id_estudiante = '{{ $json.student_id }}'\nORDER BY cm.pilar, ce.anio, ce.semestre;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          6208,
+          2880
+        ],
+        "id": "61555f31-0919-4845-b63a-fdb7dfb07c30",
+        "name": "get_student_courses",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "student_id"
+              }
+            ]
+          }
+        },
+        "id": "eb3671ef-ea7f-48c8-a464-b783d726a57c",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          6000,
+          2880
+        ]
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "get_student_courses",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Leydy Macareo",
+    "name": "Version 88914f46",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
