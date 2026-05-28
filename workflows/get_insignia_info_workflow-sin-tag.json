@@ -1,0 +1,148 @@
+{
+  "updatedAt": "2026-05-27T20:53:12.252Z",
+  "createdAt": "2026-05-27T20:53:12.252Z",
+  "id": "nrfLveQdUWYbz0Pb",
+  "name": "get_insignia_info_workflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "45fb93a0-7ddf-4ad0-b782-252799403487",
+              "name": "output",
+              "value": "=🏅 INSIGNIA DE COMPETENCIAS DIGITALES\n\nEs un reconocimiento institucional que otorga la UNAB a los estudiantes que completan los tres pilares de la Ruta de Competencias Digitales.\n\nPara obtenerla necesitas aprobar un curso de cada pilar:\n\n1️⃣ COMPETENCIAS DIGITALES BÁSICAS\nCultura Digital, Vida en Línea, Interacción Digital\n\n2️⃣ ANALÍTICA Y CONTENIDO DIGITAL\nWord, PowerPoint, Habilidades en Analítica Digital, Marca Personal Digital, Creación de Contenidos Digitales\n\n3️⃣ TRANSFORMACIÓN DIGITAL\nExcel, IA Generativa, Marco Legal Digital, Cuidado y Bienestar Digital\n\n💡 La insignia certifica tus habilidades digitales y fortalece tu perfil profesional ante empleadores.\n\n¿Quieres saber qué cursos has tomado? Escribe /mis_cursos",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5632,
+        2912
+      ],
+      "id": "c1d18b97-12f9-45f5-8d56-c6dfdc0a10f1",
+      "name": "insignia1",
+      "disabled": false
+    },
+    {
+      "id": "6286d7e4-6caf-43ba-bb80-6da695f3f1f5",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        5424,
+        2912
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "insignia1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "7611bd2a-14f9-416f-9ee3-de1ce6f2903e",
+  "activeVersionId": "7611bd2a-14f9-416f-9ee3-de1ce6f2903e",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-27T20:53:12.252Z",
+      "createdAt": "2026-05-27T20:53:12.252Z",
+      "role": "workflow:owner",
+      "workflowId": "nrfLveQdUWYbz0Pb",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-27T20:53:12.252Z",
+    "createdAt": "2026-05-27T20:53:12.252Z",
+    "versionId": "7611bd2a-14f9-416f-9ee3-de1ce6f2903e",
+    "workflowId": "nrfLveQdUWYbz0Pb",
+    "nodes": [
+      {
+        "parameters": {
+          "mode": "manual",
+          "duplicateItem": false,
+          "assignments": {
+            "assignments": [
+              {
+                "id": "45fb93a0-7ddf-4ad0-b782-252799403487",
+                "name": "output",
+                "value": "=🏅 INSIGNIA DE COMPETENCIAS DIGITALES\n\nEs un reconocimiento institucional que otorga la UNAB a los estudiantes que completan los tres pilares de la Ruta de Competencias Digitales.\n\nPara obtenerla necesitas aprobar un curso de cada pilar:\n\n1️⃣ COMPETENCIAS DIGITALES BÁSICAS\nCultura Digital, Vida en Línea, Interacción Digital\n\n2️⃣ ANALÍTICA Y CONTENIDO DIGITAL\nWord, PowerPoint, Habilidades en Analítica Digital, Marca Personal Digital, Creación de Contenidos Digitales\n\n3️⃣ TRANSFORMACIÓN DIGITAL\nExcel, IA Generativa, Marco Legal Digital, Cuidado y Bienestar Digital\n\n💡 La insignia certifica tus habilidades digitales y fortalece tu perfil profesional ante empleadores.\n\n¿Quieres saber qué cursos has tomado? Escribe /mis_cursos",
+                "type": "string"
+              }
+            ]
+          },
+          "includeOtherFields": false,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          5632,
+          2912
+        ],
+        "id": "c1d18b97-12f9-45f5-8d56-c6dfdc0a10f1",
+        "name": "insignia1",
+        "disabled": false
+      },
+      {
+        "id": "6286d7e4-6caf-43ba-bb80-6da695f3f1f5",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          5424,
+          2912
+        ],
+        "parameters": {
+          "inputSource": "passthrough"
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "insignia1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Leydy Macareo",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
