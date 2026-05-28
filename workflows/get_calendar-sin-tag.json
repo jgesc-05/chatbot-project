@@ -1,0 +1,140 @@
+{
+  "updatedAt": "2026-05-27T22:06:37.526Z",
+  "createdAt": "2026-05-27T22:06:37.526Z",
+  "id": "T2MkBnTyYpbQJbpe",
+  "name": "get_calendar",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "curlImport": "",
+        "method": "GET",
+        "url": "https://docs.google.com/spreadsheets/d/1T_8oUqHCEdhQTWkI7nqf4eJufQKSOwR9NUMUKkfhBlo/export?format=csv",
+        "authentication": "none",
+        "provideSslCertificates": false,
+        "sendQuery": false,
+        "sendHeaders": false,
+        "sendBody": false,
+        "options": {},
+        "infoMessage": ""
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        5040,
+        2912
+      ],
+      "id": "9ef36e8f-e861-45e2-b9da-43fda9267970",
+      "name": "HTTP Request4",
+      "disabled": false
+    },
+    {
+      "id": "0c3346f6-c6c2-4171-8003-f3a77e77aa24",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        4832,
+        2912
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "a50779d0-0148-42b4-90cc-46e340559790",
+  "activeVersionId": "a50779d0-0148-42b4-90cc-46e340559790",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-27T22:06:37.526Z",
+      "createdAt": "2026-05-27T22:06:37.526Z",
+      "role": "workflow:owner",
+      "workflowId": "T2MkBnTyYpbQJbpe",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-27T22:06:37.526Z",
+    "createdAt": "2026-05-27T22:06:37.526Z",
+    "versionId": "a50779d0-0148-42b4-90cc-46e340559790",
+    "workflowId": "T2MkBnTyYpbQJbpe",
+    "nodes": [
+      {
+        "parameters": {
+          "curlImport": "",
+          "method": "GET",
+          "url": "https://docs.google.com/spreadsheets/d/1T_8oUqHCEdhQTWkI7nqf4eJufQKSOwR9NUMUKkfhBlo/export?format=csv",
+          "authentication": "none",
+          "provideSslCertificates": false,
+          "sendQuery": false,
+          "sendHeaders": false,
+          "sendBody": false,
+          "options": {},
+          "infoMessage": ""
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          5040,
+          2912
+        ],
+        "id": "9ef36e8f-e861-45e2-b9da-43fda9267970",
+        "name": "HTTP Request4",
+        "disabled": false
+      },
+      {
+        "id": "0c3346f6-c6c2-4171-8003-f3a77e77aa24",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          4832,
+          2912
+        ],
+        "parameters": {
+          "inputSource": "passthrough"
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request4",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Leydy Macareo",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
