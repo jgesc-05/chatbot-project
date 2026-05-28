@@ -1,0 +1,248 @@
+{
+  "updatedAt": "2026-05-23T02:16:34.971Z",
+  "createdAt": "2026-05-23T02:02:54.392Z",
+  "id": "5bl9R86qYIn8JS8P",
+  "name": "Bot CCD - Principal copy 2",
+  "active": false,
+  "isArchived": true,
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1126856d-6e0a-4e3f-8231-eb4317713007",
+      "name": "Telegram Trigger",
+      "webhookId": "0aa834df-e725-4cc8-99b1-a7b8d24c6153",
+      "credentials": {
+        "telegramApi": {
+          "id": "070adV1wPcuSjMfV",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=Eres el asistente virtual del Centro de Competencias Digitales (CCD) de la Universidad Autónoma de Bucaramanga (UNAB). \n\nTu rol es ayudar a estudiantes de la UNAB con información sobre la Ruta de Competencias Digitales, que se compone de tres pilares:\n1. Competencias Digitales Básicas\n2. Analítica y Contenido Digital  \n3. Transformación Digital\n\nReglas importantes:\n- Responde siempre en español, con tono amigable y cercano.\n- Sé conciso: respuestas de 2-4 párrafos máximo. Usa listas cuando sea útil.\n- Si no sabes la respuesta, dilo honestamente y sugiere contactar al CCD directamente.\n- Si el usuario usa lenguaje ofensivo, pídele respetuosamente que mantenga un tono adecuado.\n- Puedes usar emojis con moderación para hacer la conversación más amena 📚\n\nPor ahora solo puedes responder con tu conocimiento general. En el futuro tendrás herramientas para consultar documentos del CCD, calendario académico y datos de estudiantes."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0c093f9a-7ce9-44ee-b905-472f73dca386",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "1632bfa7-04ee-4b5c-b579-7f0cb4bd67f6",
+      "name": "Send a text message",
+      "webhookId": "4460e4b8-5e7f-424d-9746-8fafcd64a4b4",
+      "credentials": {
+        "telegramApi": {
+          "id": "070adV1wPcuSjMfV",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "=meta/llama-3_3-70b-instruct",
+          "mode": "id"
+        },
+        "responsesApiEnabled": false,
+        "options": {
+          "maxTokens": 500
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        256
+      ],
+      "id": "e3b3080a-980b-4e94-87d0-6965978a3079",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "7S56K9fJDwzk6p9J",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Consulta el calendario académico oficial del Centro de Competencias Digitales (CCD) de la UNAB. Devuelve una lista de eventos con sus fechas, descripciones, pilares y tipos. \n\nUsa esta herramienta cuando el estudiante pregunte sobre:\n- Fechas de inscripciones, pruebas, cursos, ceremonias o eventos del CCD\n- Cuándo empieza o termina algo (cursos vacacionales, semestre regular, etc.)\n- Procesos académicos con fechas (inscripción, pago, paso a historia académica)\n- Precios o costos asociados a eventos\n\nNO uses esta herramienta para preguntas generales sobre el CCD que no tengan que ver con fechas o eventos.",
+        "url": "https://docs.google.com/spreadsheets/d/1T_8oUqHCEdhQTWkI7nqf4eJufQKSOwR9NUMUKkfhBlo/export?format=csv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        352,
+        240
+      ],
+      "id": "a8ff97c8-a4f8-4702-8571-37716994ceef",
+      "name": "consultar_calendario_ccd"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "En estos datos, busque por favor la información correspondiente con las competencias digitales (por ejemplo, la justificación del cambio, que es la insignia de competencias digitales, etcétera). O sea, recopile toda la información adecuada para el contexto (especialmente, mire los títulos y subtítulos de cada sección para, cuando el usuario le pregunte, responda adecuadamente. ",
+        "tableName": "documentos_rag",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        240
+      ],
+      "id": "106d3618-0aaf-4dd7-88eb-63bc72d6d1d4",
+      "name": "Postgres PGVector Store",
+      "credentials": {
+        "postgres": {
+          "id": "dLoF2ZJBqZrAXh5m",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "=meta/llama-3.3-70b-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        496,
+        368
+      ],
+      "id": "26106d39-629b-45c1-8dd3-6d5cf0f6a2f8",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "7S56K9fJDwzk6p9J",
+          "name": "OpenAI account 2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consultar_calendario_ccd": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres PGVector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Postgres PGVector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "4df34f46-ed4f-42da-a949-fd8fd9f3e584",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-23T02:02:54.392Z",
+      "createdAt": "2026-05-23T02:02:54.392Z",
+      "role": "workflow:owner",
+      "workflowId": "5bl9R86qYIn8JS8P",
+      "projectId": "X4Igtoeiiwa2OcOR"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
