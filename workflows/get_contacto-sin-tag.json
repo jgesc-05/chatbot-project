@@ -1,0 +1,146 @@
+{
+  "updatedAt": "2026-05-27T23:38:00.225Z",
+  "createdAt": "2026-05-27T23:38:00.225Z",
+  "id": "larKm1C3Bkr4FVs3",
+  "name": "get_contacto",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9f87a56-f73e-4e33-adc0-574afb64dd28",
+              "name": "output",
+              "value": "=📍 *Centro de Competencias Digitales (CCD)*\nUniversidad Autónoma de Bucaramanga\n\n🏢 Ubicación: Bloque L, piso 2\n📧 Correo: ccdigital@unab.edu.co\n📞 Teléfono: (607) 6436111, extensiones 1807 / 1644\n🌐 Sitio web: www.unab.edu.co\n\n💡 La Ruta de Competencias Digitales se compone de tres pilares formativos:\n\n1. Competencias Digitales Básicas\n2. Analítica y Contenido Digital\n3. Transformación Digital\n\nAl completar los tres cursos recibes la Insignia de Competencias Digitales, un reconocimiento que fortalece tu empleabilidad.\n\n📌 Recuerda: cuando contactes al CCD, incluye tu ID estudiantil, programa, semestre y modalidad.",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5152,
+        2912
+      ],
+      "id": "94c7fa8f-2931-4f11-b575-6600333c2487",
+      "name": "contacto"
+    },
+    {
+      "id": "f4a5e495-cd3e-4bd9-99ad-c13abfd50900",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        4944,
+        2912
+      ],
+      "parameters": {
+        "inputSource": "passthrough"
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "contacto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "4b5bfa81-44d8-4ae4-9a65-59bec2b7c4bd",
+  "activeVersionId": "4b5bfa81-44d8-4ae4-9a65-59bec2b7c4bd",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-27T23:38:00.225Z",
+      "createdAt": "2026-05-27T23:38:00.225Z",
+      "role": "workflow:owner",
+      "workflowId": "larKm1C3Bkr4FVs3",
+      "projectId": "TLL7K6WmCXFcfqWV"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-27T23:38:00.225Z",
+    "createdAt": "2026-05-27T23:38:00.225Z",
+    "versionId": "4b5bfa81-44d8-4ae4-9a65-59bec2b7c4bd",
+    "workflowId": "larKm1C3Bkr4FVs3",
+    "nodes": [
+      {
+        "parameters": {
+          "mode": "manual",
+          "duplicateItem": false,
+          "assignments": {
+            "assignments": [
+              {
+                "id": "f9f87a56-f73e-4e33-adc0-574afb64dd28",
+                "name": "output",
+                "value": "=📍 *Centro de Competencias Digitales (CCD)*\nUniversidad Autónoma de Bucaramanga\n\n🏢 Ubicación: Bloque L, piso 2\n📧 Correo: ccdigital@unab.edu.co\n📞 Teléfono: (607) 6436111, extensiones 1807 / 1644\n🌐 Sitio web: www.unab.edu.co\n\n💡 La Ruta de Competencias Digitales se compone de tres pilares formativos:\n\n1. Competencias Digitales Básicas\n2. Analítica y Contenido Digital\n3. Transformación Digital\n\nAl completar los tres cursos recibes la Insignia de Competencias Digitales, un reconocimiento que fortalece tu empleabilidad.\n\n📌 Recuerda: cuando contactes al CCD, incluye tu ID estudiantil, programa, semestre y modalidad.",
+                "type": "string"
+              }
+            ]
+          },
+          "includeOtherFields": false,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          5152,
+          2912
+        ],
+        "id": "94c7fa8f-2931-4f11-b575-6600333c2487",
+        "name": "contacto"
+      },
+      {
+        "id": "f4a5e495-cd3e-4bd9-99ad-c13abfd50900",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          4944,
+          2912
+        ],
+        "parameters": {
+          "inputSource": "passthrough"
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "contacto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Leydy Macareo",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
