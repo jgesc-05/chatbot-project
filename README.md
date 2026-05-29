@@ -83,7 +83,7 @@ Sheets      SQL       SQL       SQL       SQL      (RAG doc) (n8n SVS)
                       Respuesta por Telegram
 ```
 
-A continuacion se presentan los diagramas de arquitectura del sistema. El archivo editable esta en `docs/Arquitectura_Chatbot_CCD.drawio`, abrible con [draw.io](https://app.diagrams.net).
+
 
 ### Vista de contexto
 
