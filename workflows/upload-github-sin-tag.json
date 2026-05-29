@@ -3,7 +3,7 @@
   "createdAt": "2026-05-28T15:25:41.809Z",
   "id": "IyaKbWLFL1q6NrUz",
   "name": "Upload Github",
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -400,14 +400,18 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "meta": {
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
   "versionId": "59d85662-9cbe-4039-b28f-f87855422007",
-  "activeVersionId": null,
-  "triggerCount": 0,
+  "activeVersionId": "59d85662-9cbe-4039-b28f-f87855422007",
+  "triggerCount": 1,
   "shared": [
     {
       "updatedAt": "2026-05-28T15:25:41.809Z",
@@ -417,6 +421,406 @@
       "projectId": "X4Igtoeiiwa2OcOR"
     }
   ],
-  "activeVersion": null,
+  "activeVersion": {
+    "updatedAt": "2026-05-28T16:10:36.293Z",
+    "createdAt": "2026-05-28T16:07:11.134Z",
+    "versionId": "59d85662-9cbe-4039-b28f-f87855422007",
+    "workflowId": "IyaKbWLFL1q6NrUz",
+    "nodes": [
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {}
+            ]
+          }
+        },
+        "id": "479ab85a-d827-4cef-afb1-e9d73e411698",
+        "name": "Schedule Trigger",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "position": [
+          -544,
+          -144
+        ],
+        "typeVersion": 1.2
+      },
+      {
+        "parameters": {
+          "filters": {},
+          "requestOptions": {}
+        },
+        "id": "efe58ca2-ba01-4ee4-8046-beb6508de4a6",
+        "name": "Retrieve workflows",
+        "type": "n8n-nodes-base.n8n",
+        "position": [
+          -64,
+          -144
+        ],
+        "typeVersion": 1,
+        "credentials": {
+          "n8nApi": {
+            "id": "ZeKdccQpIP1iwmUJ",
+            "name": "n8n account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "fieldsToAggregate": {
+            "fieldToAggregate": [
+              {
+                "fieldToAggregate": "name"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "1f2b0b13-660b-4f91-aa52-b8cce21505f1",
+        "name": "Aggregate",
+        "type": "n8n-nodes-base.aggregate",
+        "position": [
+          -224,
+          -144
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "resource": "file",
+          "operation": "list",
+          "owner": {
+            "__rl": true,
+            "value": "jgesc-05",
+            "mode": "name"
+          },
+          "repository": {
+            "__rl": true,
+            "value": "chatbot-project",
+            "mode": "list",
+            "cachedResultName": "chatbot-project",
+            "cachedResultUrl": "https://github.com/jgesc-05/chatbot-project"
+          },
+          "filePath": "=/workflows"
+        },
+        "id": "2cba9d67-948e-4dd8-a0f4-8eacb3ddab78",
+        "name": "List files from repo",
+        "type": "n8n-nodes-base.github",
+        "position": [
+          -384,
+          -144
+        ],
+        "webhookId": "354d699e-44b0-4444-9d31-af7fd4ff5561",
+        "typeVersion": 1,
+        "alwaysOutputData": true,
+        "credentials": {
+          "githubApi": {
+            "id": "L3q6tBrxy2EAiHIN",
+            "name": "GitHub account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "file",
+          "operation": "edit",
+          "owner": {
+            "__rl": true,
+            "value": "jgesc-05",
+            "mode": "name"
+          },
+          "repository": {
+            "__rl": true,
+            "value": "chatbot-project",
+            "mode": "list",
+            "cachedResultName": "chatbot-project",
+            "cachedResultUrl": "https://github.com/jgesc-05/chatbot-project"
+          },
+          "filePath": "={{ \"workflows/\" + $('Retrieve workflows').item.json.name.replace(/\\s+/g, '-').toLowerCase() + \"-\" + ($('Retrieve workflows').item.json.tags && $('Retrieve workflows').item.json.tags.length > 0 ? $('Retrieve workflows').item.json.tags[0].name : \"sin-tag\") + \".json\" }}",
+          "fileContent": "={{ $('To base64').item.json.data }}",
+          "commitMessage": "=backup-{{ $('Commit date & file name').item.json.commitDate }}"
+        },
+        "id": "e66c1755-e333-4997-ad41-0bb48c19309e",
+        "name": "Update file",
+        "type": "n8n-nodes-base.github",
+        "position": [
+          752,
+          -224
+        ],
+        "webhookId": "27218087-8df7-474d-a39f-70cfa9c34ec8",
+        "typeVersion": 1,
+        "credentials": {
+          "githubApi": {
+            "id": "L3q6tBrxy2EAiHIN",
+            "name": "GitHub account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "file",
+          "owner": {
+            "__rl": true,
+            "value": "jgesc-05",
+            "mode": "name"
+          },
+          "repository": {
+            "__rl": true,
+            "value": "chatbot-project",
+            "mode": "list",
+            "cachedResultName": "chatbot-project",
+            "cachedResultUrl": "https://github.com/jgesc-05/chatbot-project"
+          },
+          "filePath": "={{ \"workflows/\" + $('Retrieve workflows').item.json.name.replace(/\\s+/g, '-').toLowerCase() + \"-\" + ($('Retrieve workflows').item.json.tags && $('Retrieve workflows').item.json.tags.length > 0 ? $('Retrieve workflows').item.json.tags[0].name : \"sin-tag\") + \".json\" }}",
+          "fileContent": "={{ $('To base64').item.json.data }}",
+          "commitMessage": "=backup-{{ $node['Commit date & file name'].json.commitDate }}"
+        },
+        "id": "50fcf192-66b6-4603-8e31-1b9715b79ee4",
+        "name": "Upload file",
+        "type": "n8n-nodes-base.github",
+        "position": [
+          752,
+          -64
+        ],
+        "webhookId": "ce4b561b-acb9-4cd8-b76f-4928dada9674",
+        "typeVersion": 1,
+        "credentials": {
+          "githubApi": {
+            "id": "L3q6tBrxy2EAiHIN",
+            "name": "GitHub account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "string": [
+              {
+                "value1": "={{ $('Aggregate').item.json.name }}",
+                "operation": "contains",
+                "value2": "={{ $('Retrieve workflows').item.json.name.replace(/\\s+/g, '-').toLowerCase() + \"-\" + ($('Retrieve workflows').item.json.tags && $('Retrieve workflows').item.json.tags.length > 0 ? $('Retrieve workflows').item.json.tags[0].name : \"sin-tag\") + \".json\" }}"
+              }
+            ]
+          }
+        },
+        "id": "104742e1-1f68-463a-8f16-708de4c0aadc",
+        "name": "Check if file exists",
+        "type": "n8n-nodes-base.if",
+        "position": [
+          592,
+          -144
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "operation": "toJson",
+          "mode": "each",
+          "options": {
+            "format": true
+          }
+        },
+        "id": "9d8c18a8-4e40-444e-bbc7-c9bfa3ba6454",
+        "name": "Json file",
+        "type": "n8n-nodes-base.convertToFile",
+        "position": [
+          112,
+          -144
+        ],
+        "typeVersion": 1.1
+      },
+      {
+        "parameters": {
+          "operation": "binaryToPropery",
+          "options": {}
+        },
+        "id": "1e823876-a20e-4b1f-9584-0399e730812b",
+        "name": "To base64",
+        "type": "n8n-nodes-base.extractFromFile",
+        "position": [
+          272,
+          -144
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "content": "### Retrieve previous file names from Github",
+          "height": 380,
+          "width": 300,
+          "color": 5
+        },
+        "id": "b4d5abc0-dfb2-4480-b3f8-ed30b5cddfdf",
+        "name": "Sticky Note1",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -400,
+          -288
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "fe4a36ef-9f04-40e3-99bd-cc517a49b440",
+                "name": "commitDate",
+                "type": "string",
+                "value": "={{ $now.format('dd-MM-yyyy/H:mm') }}"
+              },
+              {
+                "id": "b0fe1bcc-e79c-4a6b-b8b4-44222c8bf4e8",
+                "name": "fileName",
+                "type": "string",
+                "value": "={{ \"workflows/\" + $('Retrieve workflows').item.json.name.replace(/\\s+/g, '-').toLowerCase() + \"-\" + ($('Retrieve workflows').item.json.tags && $('Retrieve workflows').item.json.tags.length > 0 ? $('Retrieve workflows').item.json.tags[0].name : \"sin-tag\") + \".json\" }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "f8c9b4f1-79d6-4b97-851b-58b9a087e3cd",
+        "name": "Commit date & file name",
+        "type": "n8n-nodes-base.set",
+        "position": [
+          432,
+          -144
+        ],
+        "typeVersion": 3.4
+      },
+      {
+        "parameters": {
+          "content": "### Retrieve and process workflows from n8n",
+          "height": 380,
+          "width": 460,
+          "color": 3
+        },
+        "id": "6c5ea4c0-fb43-4891-b551-77a0cc4a6aea",
+        "name": "Sticky Note2",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -80,
+          -288
+        ],
+        "typeVersion": 1
+      },
+      {
+        "parameters": {
+          "content": "### Commit + edit/create files if needed",
+          "height": 380,
+          "width": 460,
+          "color": 4
+        },
+        "id": "6704b162-3ff2-4173-8453-93fc844fce93",
+        "name": "Sticky Note3",
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          400,
+          -288
+        ],
+        "typeVersion": 1
+      }
+    ],
+    "connections": {
+      "Aggregate": {
+        "main": [
+          [
+            {
+              "node": "Retrieve workflows",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Json file": {
+        "main": [
+          [
+            {
+              "node": "To base64",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "To base64": {
+        "main": [
+          [
+            {
+              "node": "Commit date & file name",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "List files from repo",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Retrieve workflows": {
+        "main": [
+          [
+            {
+              "node": "Json file",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Check if file exists": {
+        "main": [
+          [
+            {
+              "node": "Update file",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Upload file",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "List files from repo": {
+        "main": [
+          [
+            {
+              "node": "Aggregate",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Commit date & file name": {
+        "main": [
+          [
+            {
+              "node": "Check if file exists",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Juan Escobar",
+    "name": "Publish upload files",
+    "description": "",
+    "autosaved": true
+  },
   "tags": []
 }
