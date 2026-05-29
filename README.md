@@ -144,6 +144,8 @@ Secuencia paso a paso de una consulta al documento institucional.
 
 ```
 chatbot-project/
+|-- docs/imagenes                                  Contiene las imagenes necesarias para la documentacion
+|
 |
 |-- sql/
 |   |-- cosmos.sql                                 Script de soporte (no requerido para el despliegue)
