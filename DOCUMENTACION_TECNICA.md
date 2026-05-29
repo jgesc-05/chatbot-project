@@ -26,11 +26,11 @@ El objetivo de diseno fue construir un asistente que no dependa de comandos rigi
 
 El sistema se organiza logicamente en cinco capas.
 
-![Arquitectura por capas](imagenes/02_capas.png)
+![Arquitectura por capas](docs/imagenes/02_capas.png)
 
 La vista de contexto general (qué hace el sistema y con quien interactua) se muestra a continuacion:
 
-![Vista de contexto](imagenes/01_contexto.png)
+![Vista de contexto](docs/imagenes/01_contexto.png)
 
 ### 2.1 Capa de presentacion
 
@@ -70,7 +70,7 @@ Siete herramientas conectadas al agente, cada una con una descripcion semantica 
 
 La base de datos n8n_db contiene las tablas del proyecto y las tablas internas de n8n. La entidad central es estudiante, conectada por clave foranea a las tablas academicas y de sesion (estas ultimas no se incluyeron en el dump (copia de seguridad) dado que se generan automáticamente con la ejecución de n8n).
 
-![Modelo de datos](imagenes/04_modelo_datos.png)
+![Modelo de datos](docs/imagenes/04_modelo_datos.png)
 
 ### 3.1 Tablas principales
 
@@ -128,11 +128,11 @@ Secuencia: Telegram Trigger, ReAct Agent con Tools, Code (limpiador de Markdown)
 
 El Telegram Trigger captura el mensaje entrante. El ReAct Agent recibe el texto, razona sobre la intencion, selecciona y ejecuta las herramientas necesarias, y compone la respuesta. El nodo Code elimina la sintaxis Markdown problematica antes del envio, porque Telegram en modo texto simple no la interpreta correctamente.
 
-![Flujo del agente ReAct](imagenes/05_flujo_agente.png)
+![Flujo del agente ReAct](docs/imagenes/05_flujo_agente.png)
 
 El despliegue fisico de estos componentes en el servidor se muestra en la vista de despliegue:
 
-![Vista de despliegue](imagenes/03_despliegue.png)
+![Vista de despliegue](docs/imagenes/03_despliegue.png)
 
 El agente tiene conectados como sub-nodos:
 - Chat Model: Anthropic Claude.
@@ -231,7 +231,7 @@ El sistema mantiene una colección RAG dentro de la misma tabla documentos_rag, 
 
 El siguiente diagrama de secuencia muestra una consulta RAG completa al documento institucional:
 
-![Flujo de consulta RAG](imagenes/06_flujo_rag.png)
+![Flujo de consulta RAG](docs/imagenes/06_flujo_rag.png)
 
 1. La pregunta del estudiante se vectoriza con nv-embed-v1.
 2. Se ejecuta una busqueda por similitud coseno en pgvector, filtrando por la categoria correspondiente.
