@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-28T16:01:50.101Z",
+  "updatedAt": "2026-05-28T21:37:36.217Z",
   "createdAt": "2026-05-22T00:13:50.442Z",
   "id": "zzCdlRRfI7MS4MOP",
   "name": "Bot CCD - Principal",
@@ -486,7 +486,9 @@
         "workflowId": {
           "__rl": true,
           "value": "T2MkBnTyYpbQJbpe",
-          "mode": "list"
+          "mode": "list",
+          "cachedResultUrl": "/workflow/T2MkBnTyYpbQJbpe",
+          "cachedResultName": "get_calendar"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -1276,7 +1278,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "bb998500-bb5d-49e5-807f-7a57c1d5b387",
+  "versionId": "9ebe27ce-68a1-40b8-96b2-2e610624d2f3",
   "activeVersionId": null,
   "triggerCount": 2,
   "shared": [
