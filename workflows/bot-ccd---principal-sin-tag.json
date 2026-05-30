@@ -3,7 +3,7 @@
   "createdAt": "2026-05-22T00:13:50.442Z",
   "id": "zzCdlRRfI7MS4MOP",
   "name": "Bot CCD - Principal",
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -1279,7 +1279,7 @@
   },
   "pinData": {},
   "versionId": "9ebe27ce-68a1-40b8-96b2-2e610624d2f3",
-  "activeVersionId": null,
+  "activeVersionId": "9ebe27ce-68a1-40b8-96b2-2e610624d2f3",
   "triggerCount": 2,
   "shared": [
     {
@@ -1290,6 +1290,1272 @@
       "projectId": "TLL7K6WmCXFcfqWV"
     }
   ],
-  "activeVersion": null,
+  "activeVersion": {
+    "updatedAt": "2026-05-29T18:10:47.394Z",
+    "createdAt": "2026-05-28T21:37:36.219Z",
+    "versionId": "9ebe27ce-68a1-40b8-96b2-2e610624d2f3",
+    "workflowId": "zzCdlRRfI7MS4MOP",
+    "nodes": [
+      {
+        "parameters": {
+          "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+          "text": "={{ $json.output }}",
+          "additionalFields": {
+            "appendAttribution": false,
+            "parse_mode": "Markdown"
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          13392,
+          4384
+        ],
+        "id": "9975ba57-168b-4ffa-a2ae-347dfcabd080",
+        "name": "Send a text message",
+        "webhookId": "aad6bdb4-6fba-4c3b-8c17-5f4c0fe8cef8",
+        "credentials": {
+          "telegramApi": {
+            "id": "lNUr9Q6KZ7UwRpVI",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "updates": [
+            "message"
+          ],
+          "additionalFields": {}
+        },
+        "type": "n8n-nodes-base.telegramTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          12656,
+          4384
+        ],
+        "id": "0aaf73df-825b-496f-b9ab-81b52508d389",
+        "name": "Telegram Trigger",
+        "webhookId": "9d8d29f5-9e2a-419d-b93c-111126def002",
+        "credentials": {
+          "telegramApi": {
+            "id": "lNUr9Q6KZ7UwRpVI",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "content": "## Flujo sobre carga de embeddings al documento\n\n",
+          "height": 112
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          12320,
+          5824
+        ],
+        "typeVersion": 1,
+        "id": "a381fe90-0f51-4577-bb83-c7e850fa7d6f",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "content": "## Flujo cargo paginas web\n\n",
+          "height": 96
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          12320,
+          5536
+        ],
+        "typeVersion": 1,
+        "id": "c0719657-0e93-43e8-b60f-25c2d4931e8a",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "content": "## Flujo principal\n\n",
+          "height": 80
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          12320,
+          4512
+        ],
+        "typeVersion": 1,
+        "id": "3319f612-1d0d-4530-bd67-49e868cf3402",
+        "name": "Sticky Note2"
+      },
+      {
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "mode": "list",
+            "value": "claude-sonnet-4-5-20250929",
+            "cachedResultName": "Claude Sonnet 4.5"
+          },
+          "options": {
+            "temperature": 0
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+        "typeVersion": 1.3,
+        "position": [
+          12640,
+          4624
+        ],
+        "id": "191df455-3901-4442-a1f8-dde051bca9e1",
+        "name": "Anthropic Chat Model",
+        "credentials": {
+          "anthropicApi": {
+            "id": "vEnzA7HNWfjZgZlU",
+            "name": "Anthropic account Leydy"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "sessionIdType": "customKey",
+          "sessionKey": "={{ $json.message.from.id }}",
+          "contextWindowLength": 8
+        },
+        "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+        "typeVersion": 1.3,
+        "position": [
+          12752,
+          4624
+        ],
+        "id": "6a656580-4888-416d-b865-2be96ba150df",
+        "name": "Postgres Chat Memory1",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "s2NubDMZgkD24XIT",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/s2NubDMZgkD24XIT",
+            "cachedResultName": "oferta workflow"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          13232,
+          4880
+        ],
+        "name": "Call oferta workflow",
+        "id": "93afe2e1-4d25-49b5-9f9b-69bc6af87b94"
+      },
+      {
+        "parameters": {
+          "description": "Usa esta herramienta cuando el usuario quiera ver los cursos ACTUALMENTE OFRECIDOS para el período activo (vacacional o semestre regular) del CCD. Devuelve: nombre del curso, código NRC, pilar al que pertenece, modalidad, horario, fechas de inicio y fin, y precio. NO usar para cursos pasados,  ni para el catálogo general de cursos.",
+          "workflowId": {
+            "__rl": true,
+            "value": "s2NubDMZgkD24XIT",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/s2NubDMZgkD24XIT",
+            "cachedResultName": "oferta workflow"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2.2,
+        "position": [
+          13232,
+          4736
+        ],
+        "id": "094d4820-9799-4a35-8993-fcbf182a764d",
+        "name": "oferta_tool"
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.message.text }}",
+          "options": {
+            "systemMessage": "Eres el asistente virtual oficial del Centro de Competencias Digitales (CCD) de la Universidad Autónoma de Bucaramanga (UNAB). Tu nombre es CCD Bot.\n\n## TU ROL\n\nTu objetivo es ayudar a estudiantes de la UNAB a:\n- Conocer la Ruta de Competencias Digitales y sus tres pilares\n- Consultar la oferta vigente de cursos vacacionales e intensivos\n- Conocer fechas importantes del calendario académico\n- Obtener información sobre la Insignia de Competencias Digitales\n- Consultar sus cursos tomados y notas\n- Contactar al CCD cuando lo necesiten\n\n## CÓMO RESPONDER\n\n1. Responde SIEMPRE en español, con tono amable, profesional y cercano.\n2. Usa emojis con moderación para hacer la conversación más amigable (📚 📅 🎓 ✅ 💡 ⚠️), pero sin abusar.\n3. Estructura las respuestas con saltos de línea y listas cuando ayude a la claridad.\n4. Sé conciso: ve al grano sin sacrificar amabilidad. No repitas información innecesaria.\n5. Si la respuesta es larga, agrúpala visualmente (por pilares, fechas, etc.).\n\n## USO DE HERRAMIENTAS\n\nTienes acceso a varias herramientas. Úsalas SIEMPRE que la pregunta del usuario lo requiera. NUNCA inventes información que pueda venir de una herramienta. Si no tienes la información, usa la herramienta correspondiente.\n\nReglas específicas:\n- Para fechas o eventos del calendario académico (inscripciones, prueba diagnóstica, inicio y fin de cursos) → usa get_calendar\n- Para cursos disponibles este período (con NRC, precios, horarios) → usa oferta_tool\n- Para datos de contacto del CCD → usa get_contacto\n- Para encontrar el id_estudiante por nombre → usa get_student_id_tool\n- Para los cursos tomados por un estudiante → usa get_student_courses_tool\n- Para información teórica e institucional del CCD (los tres pilares, la propuesta del Departamento de Competencias Digitales, el sistema de evaluación, la obligatoriedad, el plan de transición, comparativas con otras universidades, la Insignia de Competencias Digitales y sus ventajas, el fundamento pedagógico) → usa consultar_documento_institucional\n- Para noticias recientes, novedades, blogs, convocatorias o anuncios publicados en la página web de la UNAB → usa el vector store de información web (scraping)\n\n## CONSULTAS PERSONALES (PRIVACIDAD)\n\nSi el usuario pregunta por SUS cursos personales, notas o historial académico:\n\n1. Si el usuario NO te ha dado su id_estudiante ni su nombre completo, pídelo amablemente. Ejemplo:\n   \"Para consultar tus cursos del CCD necesito tu id_estudiante (8 dígitos) o tu nombre completo. ¿Me lo compartes?\"\n\n2. Si te da SOLO el nombre, usa get_student_id_tool primero para obtener el id_estudiante. Luego usa get_student_courses_tool con ese id.\n\n3. Si te da SOLO el id_estudiante, usa directamente get_student_courses_tool.\n\n4. SIEMPRE al final de mostrar información personal, incluye este aviso:\n   \"⚠️ Aviso de privacidad: la información mostrada corresponde al estudiante consultado. La consulta es responsabilidad del usuario que la solicita.\"\n\n5. NUNCA inventes datos personales. Si la herramienta no encuentra al estudiante o no tiene cursos, dilo claramente.\n\n## QUÉ NO HACER\n\n- NO inventes fechas, precios, nombres de cursos ni datos institucionales.\n- NO respondas preguntas que no estén relacionadas con el CCD-UNAB. Si te preguntan sobre otros temas (clima, deportes, política, ayuda con tareas, etc.), redirige amablemente:\n  \"Soy el asistente del Centro de Competencias Digitales de la UNAB. Puedo ayudarte con información sobre la Ruta de Competencias Digitales, cursos, fechas y procesos académicos. ¿Hay algo de eso en lo que pueda ayudarte?\"\n- NO compartas información de un estudiante con otro. Cada consulta es independiente.\n- NO uses lenguaje técnico innecesario. Los estudiantes pueden no conocer términos como \"RAG\", \"endpoint\", \"API\".\n\n## CASOS ESPECIALES\n\n- Si el usuario saluda (\"hola\", \"buenas\", etc.), responde con un saludo cordial breve y ofrécele opciones de lo que puedes hacer. NO uses herramientas para un saludo simple.\n\n- Si el usuario te agradece, responde con cortesía y ofrécete a ayudar en algo más.\n\n- Si el usuario hace una pregunta ambigua, pide aclaración antes de usar una herramienta. Por ejemplo:\n  Usuario: \"¿cuándo es?\"\n  Tú: \"¿Te refieres al inicio de inscripciones, al inicio de clases, o a alguna otra fecha específica?\"\n\n- Si una herramienta devuelve un error o información vacía, infórmaselo al usuario sin tecnicismos. Ofrécele alternativas o sugiérele contactar al CCD directamente.\n\n- Si el usuario usa groserías, lenguaje ofensivo o agresivo, NO respondas con el mismo tono ni te ofendas. Mantén la calma y la cortesía profesional. Si la grosería es solo desahogo o frustración (ej: \"no entiendo nada, qué $%&#\"), reconoce la frustración con empatía y ofrece ayuda concreta. Si el lenguaje ofensivo es directo hacia el bot o reiterado, responde con firmeza amable recordando tu propósito, sin sermonear. Ejemplo:\n  \"Entiendo que puedas estar frustrado. Estoy aquí para ayudarte con lo que necesites del Centro de Competencias Digitales. ¿En qué te puedo colaborar? 😊\"\n  Nunca discutas, nunca insultes de vuelta, y nunca abandones tu rol de asistente del CCD.\n\n## INFORMACIÓN CONTEXTUAL DEL CCD\n\nEl CCD ofrece formación en tres pilares:\n1. Competencias Digitales Básicas (Cultura Digital, Vida en Línea, Interacción Digital)\n2. Analítica y Contenido Digital (Word, PowerPoint, Habilidades en Analítica Digital, Marca Personal Digital, Creación de Contenidos Digitales)\n3. Transformación Digital (Excel, IA Generativa, Marco Legal Digital, Cuidado y Bienestar Digital)\n\nAl completar un curso de cada pilar, el estudiante obtiene la Insignia de Competencias Digitales.\n\nLos cursos pueden tomarse en modalidades:\n- Teleclase (sincrónica con horario fijo)\n- Virtual Canvas (sincrónica con interacción)\n- Virtual asíncrono (a tu ritmo)\n\nLas inscripciones se hacen por Cosmos. El pago puede ser por PSE o cupón de pago.\n\nRecuerda: ante cualquier duda institucional específica, sugiere contactar al CCD directamente: ccdigital@unab.edu.co o (607) 6436111, ext. 1807/1644.\n\nIMPORTANTE: Esta información contextual es un resumen rápido para responder con agilidad preguntas simples. Si hay CUALQUIER diferencia entre este resumen y lo que devuelve la herramienta consultar_documento_institucional, SIEMPRE prioriza la información de la herramienta, que proviene del documento institucional oficial. Para preguntas detalladas sobre pilares, cursos o la insignia, consulta siempre el documento institucional.\n\n## FORMATO DE RESPUESTAS (CRÍTICO)\n\nTus respuestas se envían por Telegram en modo de texto simple. NO uses NINGUNA sintaxis de formato. Solo texto plano con emojis y saltos de línea reales.\n\nPROHIBIDO ABSOLUTAMENTE (causa errores graves):\n- Doble asterisco para negrita: **texto** ❌\n- Asterisco simple: *texto* ❌\n- Guion bajo para cursiva: _texto_ ❌\n- Headers con #, ##, ### o #### ❌\n- Tablas con | columnas | ❌\n- Líneas separadoras --- o === ❌\n- Acentos graves para código ` ❌\n- Caracteres especiales para formato\n\nPERMITIDO Y RECOMENDADO:\n- Texto plano normal\n- Saltos de línea reales (un Enter)\n- Emojis para destacar: 📚 ✅ 📅 🎓 ⚠️ 🔢 🕐 🏷️ 💰 📆 🎯\n- MAYÚSCULAS para títulos de sección\n- Listas con guiones simples o emojis al inicio\n- Numeración con 1. 2. 3.\n\nEJEMPLO CORRECTO de cómo pedir un id_estudiante:\n\nPara consultar tus cursos del CCD necesito tu id_estudiante (8 dígitos) o tu nombre completo. ¿Me lo compartes? 😊\n\nDe esta forma podré mostrarte tu historial de cursos y notas del Centro de Competencias Digitales.\n\nEJEMPLO CORRECTO para mostrar cursos:\n\n📚 CURSOS DISPONIBLES - SUB-CICLO 1\n(12 junio - 23 junio 2026)\n\n🎓 PILAR 1 - Competencias Digitales Básicas\n\n✅ Interacción Digital\n🔢 NRC: 1251\n🏷️ Modalidad: Virtual Canvas\n🕐 Horario: Virtual asíncrono\n📆 12/06/2026 al 04/07/2026\n💰 Precio: $362.550 COP\n\nEJEMPLO INCORRECTO (NUNCA hagas esto):\n\n**Para consultar tus cursos** necesito tu **id_estudiante**...\n### CURSOS DISPONIBLES\n| NRC | Curso |\n|-----|-------|\n| 1251 | Interacción Digital |\n\nRecuerda: SOLO texto plano, saltos de línea reales y emojis. CERO sintaxis de Markdown.",
+            "maxIterations": 5
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3.1,
+        "position": [
+          12816,
+          4384
+        ],
+        "id": "40e22609-67d4-4945-b91b-26a5f8b7c127",
+        "name": "ReAct Agent con Tools"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "N2Wnq0G2ttLS5YRH",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/N2Wnq0G2ttLS5YRH",
+            "cachedResultName": "get_student_id_workflow"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [
+              "full_name"
+            ],
+            "schema": [
+              {
+                "id": "full_name",
+                "displayName": "full_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "type": "string",
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          13424,
+          4880
+        ],
+        "name": "Call get_student_id_workflow",
+        "id": "77509f8f-1032-4b89-85cf-fe1530fb08c2"
+      },
+      {
+        "parameters": {
+          "description": "Usa esta herramienta cuando necesites encontrar el id_estudiante de un estudiante por su nombre. Pasa el nombre completo o parcial (la búsqueda usa coincidencia por inicio - startswith). Devuelve el id_estudiante y los datos básicos del estudiante. Usa esta herramienta ANTES de get_student_courses_tool cuando el usuario mencione su nombre en lugar de su id_estudiante.",
+          "workflowId": {
+            "__rl": true,
+            "value": "N2Wnq0G2ttLS5YRH",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/N2Wnq0G2ttLS5YRH",
+            "cachedResultName": "get_student_id_workflow"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "full_name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('full_name', ``, 'string') }}"
+            },
+            "matchingColumns": [
+              "full_name"
+            ],
+            "schema": [
+              {
+                "id": "full_name",
+                "displayName": "full_name",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "type": "string",
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2.2,
+        "position": [
+          13440,
+          4736
+        ],
+        "id": "efad95e2-dd7e-41e7-b37b-55818adaa7eb",
+        "name": "get_student_id_tool"
+      },
+      {
+        "parameters": {
+          "description": "Usa esta herramienta para obtener los cursos del CCD que un estudiante ha tomado y sus notas. Requiere el id_estudiante como string. Devuelve la lista de cursos completados con su pilar, período cursado y nota obtenida. Si solo tienes el nombre del estudiante, usa primero get_student_id_tool para obtener el id_estudiante.",
+          "workflowId": {
+            "__rl": true,
+            "value": "RVjc1KtVPzycjCZn",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/RVjc1KtVPzycjCZn",
+            "cachedResultName": "get_student_courses_workflow"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "student_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('student_id', ``, 'string') }}"
+            },
+            "matchingColumns": [
+              "student_id"
+            ],
+            "schema": [
+              {
+                "id": "student_id",
+                "displayName": "student_id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "type": "string",
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2.2,
+        "position": [
+          13648,
+          4736
+        ],
+        "id": "f32cd2fc-370d-4662-a2db-a8d60cfde896",
+        "name": "get_student_courses_tool"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "RVjc1KtVPzycjCZn",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/RVjc1KtVPzycjCZn",
+            "cachedResultName": "get_student_courses_workflow"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [
+              "student_id"
+            ],
+            "schema": [
+              {
+                "id": "student_id",
+                "displayName": "student_id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "type": "string",
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          13648,
+          4880
+        ],
+        "name": "Call get_student_courses_workflow",
+        "id": "6037a138-4f63-487c-ad2d-ca1ee22ea9e6"
+      },
+      {
+        "parameters": {
+          "mode": "retrieve-as-tool",
+          "toolDescription": "Consulta información ACTUAL y PÚBLICA del sitio web de la UNAB obtenida por web scraping: noticias recientes, blogs, convocatorias, nuevos cursos anunciados, certificaciones y novedades del Centro de Competencias Digitales y la universidad en general. Usa esta tool cuando el estudiante pregunte por novedades, noticias recientes, \"qué hay de nuevo\", anuncios, o información publicada en la página web. NO uses esta tool para: el contenido teórico del documento institucional (pilares, propuesta del DCD, plan de transición, comparativas entre universidades, insignia formal → usa consultar_documento_institucional); la oferta vigente con NRC y precios (→ usa oferta_tool); ni fechas del calendario académico como inscripciones, prueba diagnóstica o inicio de clases (→ usa get_calendar).",
+          "memoryKey": {
+            "__rl": true,
+            "value": "documents_store",
+            "mode": "id"
+          },
+          "topK": 10
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+        "typeVersion": 1.3,
+        "position": [
+          13856,
+          4736
+        ],
+        "id": "02bea94f-678c-4c89-be17-907dfeee3e2f",
+        "name": "Simple Vector Store"
+      },
+      {
+        "parameters": {
+          "mode": "insert",
+          "memoryKey": {
+            "__rl": true,
+            "value": "documents_store",
+            "mode": "id"
+          },
+          "clearStore": true
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+        "typeVersion": 1.3,
+        "position": [
+          13856,
+          5376
+        ],
+        "id": "d5349249-2ee2-477f-b3ed-b209322a2412",
+        "name": "Simple Vector Store1"
+      },
+      {
+        "parameters": {
+          "jsonMode": "expressionData",
+          "jsonData": "={{ $json[''][0] }}",
+          "textSplittingMode": "custom",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+        "typeVersion": 1.1,
+        "position": [
+          13968,
+          5536
+        ],
+        "id": "75de4d10-2c3a-4851-a7ff-31aedec139d3",
+        "name": "Default Data Loader3"
+      },
+      {
+        "parameters": {
+          "model": "nvidia/nv-embed-v1",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          13856,
+          4896
+        ],
+        "id": "7cbc500e-b50e-4a6b-ae4f-0c5412edb8d6",
+        "name": "Embeddings OpenAI3",
+        "credentials": {
+          "openAiApi": {
+            "id": "Nuh7qgA01pbVqwK8",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "model": "nvidia/nv-embed-v1",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          13856,
+          5536
+        ],
+        "id": "0f9abf65-a6e4-4c56-9dd1-131b1ddd8826",
+        "name": "Embeddings OpenAI5",
+        "credentials": {
+          "openAiApi": {
+            "id": "Nuh7qgA01pbVqwK8",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "T2MkBnTyYpbQJbpe",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/T2MkBnTyYpbQJbpe",
+            "cachedResultName": "get_calendar"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          13040,
+          4880
+        ],
+        "name": "Call get_calendar",
+        "id": "419d8bb3-e6a8-47f2-ba51-1928ee9ee568"
+      },
+      {
+        "parameters": {
+          "description": "Usa esta herramienta cuando el usuario pregunte por fechas específicas del calendario académico del CCD: fechas de inscripción, fechas de inicio o fin de clases, plazos de pago, fechas de sub-ciclos vacacionales, fechas de paso a historia académica, o cualquier evento del calendario. Devuelve la lista completa de eventos académicos con sus fechas. NO usar para precios, contenido de cursos, ni información general.",
+          "workflowId": {
+            "__rl": true,
+            "value": "T2MkBnTyYpbQJbpe",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/T2MkBnTyYpbQJbpe",
+            "cachedResultName": "get_calendar"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2.2,
+        "position": [
+          13056,
+          4736
+        ],
+        "id": "5af0c854-69e7-4819-9f06-931e3ada31c5",
+        "name": "get_calendar"
+      },
+      {
+        "parameters": {
+          "chunkOverlap": 50
+        },
+        "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+        "typeVersion": 1,
+        "position": [
+          13968,
+          5696
+        ],
+        "id": "e9fb324c-a8f7-43d7-a1af-771cd7423471",
+        "name": "Token Splitter1"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "larKm1C3Bkr4FVs3",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/larKm1C3Bkr4FVs3",
+            "cachedResultName": "get_contacto"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          12848,
+          4880
+        ],
+        "name": "Call get_contacto",
+        "id": "46124b7f-f51b-4580-98ca-5402ac15411a"
+      },
+      {
+        "parameters": {
+          "description": "Usa esta herramienta cuando el usuario pregunte por información de contacto del CCD: correo electrónico, número de teléfono y extensiones, ubicación física en la UNAB, sitio web institucional, o canales oficiales para comunicarse con el Centro de Competencias Digitales.",
+          "workflowId": {
+            "__rl": true,
+            "value": "larKm1C3Bkr4FVs3",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/larKm1C3Bkr4FVs3",
+            "cachedResultName": "get_contacto"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2.2,
+        "position": [
+          12864,
+          4736
+        ],
+        "id": "4c5f179c-9f1d-4540-b1a7-c6b504247113",
+        "name": "Call 'get_contacto'"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Limpia formato Markdown problemático antes de enviar a Telegram\nconst datos = $input.first().json;\n\nlet textoOriginal = datos.output || datos.text || '';\n\nlet textoLimpio = textoOriginal\n  // Quitar doble asterisco\n  .replace(/\\*\\*(.*?)\\*\\*/g, '$1')\n  // Quitar asterisco simple\n  .replace(/\\*(.*?)\\*/g, '$1')\n  // Quitar guion bajo Markdown (cursiva) — pero NO los que están dentro de palabras\n  .replace(/(?<=\\s|^)_([^_\\n]+?)_(?=\\s|$|[.,!?:])/g, '$1')\n  // Quitar headers Markdown\n  .replace(/^#{1,6}\\s+/gm, '')\n  // Quitar líneas separadoras\n  .replace(/^[\\-=]{3,}$/gm, '')\n  // Quitar acentos graves\n  .replace(/`([^`]+)`/g, '$1')\n  // Quitar bloques de código\n  .replace(/```[\\s\\S]*?```/g, '')\n  // Convertir \\n literal a salto de línea real\n  .replace(/\\\\n/g, '\\n')\n  // Limpiar múltiples saltos de línea\n  .replace(/\\n{3,}/g, '\\n\\n');\n\n// Escapar caracteres especiales de Markdown Legacy que pueden romper Telegram\n// En Markdown Legacy estos caracteres tienen significado: _ * [ ` \n// Los escapamos para que se vean literales\ntextoLimpio = textoLimpio\n  // Escapar guiones bajos dentro de palabras (id_estudiante → id\\_estudiante)\n  .replace(/_/g, '\\\\_')\n  // Escapar asteriscos sueltos restantes\n  .replace(/\\*/g, '\\\\*')\n  // Escapar corchetes (no muy comunes pero por si acaso)\n  .replace(/\\[/g, '\\\\[')\n  .replace(/\\]/g, '\\\\]');\n\nreturn [{ json: { output: textoLimpio } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          13168,
+          4384
+        ],
+        "id": "deb3ae54-d147-4dad-8947-69b229d125d2",
+        "name": "Code in JavaScript1"
+      },
+      {
+        "parameters": {
+          "mode": "insert",
+          "tableName": "documentos_rag",
+          "embeddingBatchSize": 16,
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+        "typeVersion": 1.3,
+        "position": [
+          13040,
+          5824
+        ],
+        "id": "576f74f4-cf60-4139-a49b-71c8fbe3ce19",
+        "name": "Postgres PGVector Store3",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "options": {
+            "metadata": {
+              "metadataValues": [
+                {
+                  "name": "title",
+                  "value": "Documento Institucional (Componente Competencias Digitales UNAB)"
+                },
+                {
+                  "name": "category",
+                  "value": "institucional"
+                },
+                {
+                  "name": "file_name",
+                  "value": "documento_institucional.pdf"
+                },
+                {
+                  "name": "source_type",
+                  "value": "file"
+                }
+              ]
+            }
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+        "typeVersion": 1.1,
+        "position": [
+          13184,
+          5968
+        ],
+        "id": "32ec8410-03c8-4422-97c8-6d08548858b4",
+        "name": "Default Data Loader4"
+      },
+      {
+        "parameters": {
+          "model": "nvidia/nv-embed-v1",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          13024,
+          6048
+        ],
+        "id": "01ddbfb1-6e1f-4817-851b-92f72435e7ef",
+        "name": "Embeddings OpenAI",
+        "credentials": {
+          "openAiApi": {
+            "id": "Nuh7qgA01pbVqwK8",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT id, text\nFROM documentos_rag\nWHERE metadata->>'file_name' = 'documento_institucional.pdf'\n  AND metadata->>'content_hash' IS NULL;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          12656,
+          5824
+        ],
+        "id": "cc0b378d-447b-47f2-9f2d-d84a233fd81f",
+        "name": "Execute a SQL query2",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "mode": "retrieve-as-tool",
+          "toolDescription": "Consulta el documento institucional oficial sobre el modelo del Centro de Competencias Digitales (CCD) de la UNAB. Usa esta tool cuando el estudiante pregunte sobre temas teóricos, estructurales o de fundamento como: los 3 pilares de competencias digitales, la propuesta del Departamento de Competencias Digitales (DCD), sistema de evaluación, obligatoriedad, requisitos formales, plan de transición desde el modelo actual de Informática, comparativas con otras universidades (EAFIT, Sabana, Norte, Andes, Nacional, ITESM, MIT, etc.), fundamento pedagógico, PEI, justificación institucional, Insignia de Competencias Digitales y sus ventajas formales para la empleabilidad. NO uses esta tool para cursos vacacionales específicos, fechas de inscripción concretas, NRC, horarios o precios actuales (para eso usa oferta_tool o el Simple Vector Store de cursos vacacionales).",
+          "tableName": "documentos_rag",
+          "topK": 5,
+          "options": {
+            "metadata": {
+              "metadataValues": [
+                {
+                  "name": "category",
+                  "value": "Institucional"
+                }
+              ]
+            }
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.vectorStorePGVector",
+        "typeVersion": 1.3,
+        "position": [
+          14144,
+          4736
+        ],
+        "id": "6385df79-d83f-43d0-85fa-0977db2048ec",
+        "name": "consultar_documento_institucional",
+        "credentials": {
+          "postgres": {
+            "id": "7jxDPROgZ6368UGX",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "model": "nvidia/nv-embed-v1",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          14144,
+          4912
+        ],
+        "id": "c4561f0a-e413-4659-8414-b1ac3238f4bc",
+        "name": "Embeddings OpenAI1",
+        "credentials": {
+          "openAiApi": {
+            "id": "Nuh7qgA01pbVqwK8",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {}
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          12448,
+          5360
+        ],
+        "id": "9f1c0497-a683-4616-adbe-52691fb1544e",
+        "name": "Schedule Trigger"
+      },
+      {
+        "parameters": {
+          "url": "https://unab.edu.co/?s=competencias+digitales",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          12640,
+          5200
+        ],
+        "id": "65ab0f78-6dcd-480f-87d6-a04ee688bbb2",
+        "name": "HTTP Request"
+      },
+      {
+        "parameters": {
+          "operation": "extractHtmlContent",
+          "extractionValues": {
+            "values": [
+              {
+                "key": "urls",
+                "cssSelector": "article.et_pb_post > a",
+                "returnValue": "attribute",
+                "attribute": "href",
+                "returnArray": true
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.html",
+        "typeVersion": 1.2,
+        "position": [
+          12800,
+          5200
+        ],
+        "id": "a7f0efa9-b1da-41b1-8eaa-1d87024c7ada",
+        "name": "HTML"
+      },
+      {
+        "parameters": {
+          "batchSize": "=1",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          13360,
+          5392
+        ],
+        "id": "9d180f51-4691-4f0b-9b46-cf7de2be6ea7",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "fieldToSplitOut": "urls",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitOut",
+        "typeVersion": 1,
+        "position": [
+          12944,
+          5200
+        ],
+        "id": "2d62487f-b43c-4bb2-af59-635d6bcd204f",
+        "name": "Split Out"
+      },
+      {
+        "parameters": {
+          "url": "={{ $json.urls }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          13536,
+          5472
+        ],
+        "id": "c5bd288f-d16d-4987-bd63-0c2a9ed162d0",
+        "name": "HTTP Request1"
+      },
+      {
+        "parameters": {
+          "operation": "extractHtmlContent",
+          "extractionValues": {
+            "values": [
+              {
+                "cssSelector": "body",
+                "returnArray": true
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.html",
+        "typeVersion": 1.2,
+        "position": [
+          13680,
+          5472
+        ],
+        "id": "6fe83944-cd1f-4c12-a382-e29017f56272",
+        "name": "HTML1"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          13152,
+          5392
+        ],
+        "id": "03d7a6ce-13d4-4351-9dc8-fb89a6d04b84",
+        "name": "Merge"
+      },
+      {
+        "parameters": {
+          "jsCode": "const manualUrls = [\n  \"https://unab.edu.co/cursos-de-vacacionales-intensivos-de-competencias-digitales/\"\n];\n\nreturn manualUrls.map(urls => ({ json: { urls } }));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          12640,
+          5504
+        ],
+        "id": "79c6cb0a-8c13-4811-9d07-f908cdb2149a",
+        "name": "Code in JavaScript"
+      },
+      {
+        "parameters": {
+          "content": "## Scrape blog",
+          "height": 80
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          12320,
+          5136
+        ],
+        "typeVersion": 1,
+        "id": "70166adb-2afe-4079-9521-2a541c04832f",
+        "name": "Sticky Note3"
+      }
+    ],
+    "connections": {
+      "Telegram Trigger": {
+        "main": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Anthropic Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Postgres Chat Memory1": {
+        "ai_memory": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "oferta_tool": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ReAct Agent con Tools": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "get_student_id_tool": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "get_student_courses_tool": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Simple Vector Store": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Default Data Loader3": {
+        "ai_document": [
+          [
+            {
+              "node": "Simple Vector Store1",
+              "type": "ai_document",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI3": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Simple Vector Store",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI5": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Simple Vector Store1",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "get_calendar": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Token Splitter1": {
+        "ai_textSplitter": [
+          [
+            {
+              "node": "Default Data Loader3",
+              "type": "ai_textSplitter",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call 'get_contacto'": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript1": {
+        "main": [
+          [
+            {
+              "node": "Send a text message",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Default Data Loader4": {
+        "ai_document": [
+          [
+            {
+              "node": "Postgres PGVector Store3",
+              "type": "ai_document",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI": {
+        "ai_embedding": [
+          [
+            {
+              "node": "Postgres PGVector Store3",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute a SQL query2": {
+        "main": [
+          [
+            {
+              "node": "Postgres PGVector Store3",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "consultar_documento_institucional": {
+        "ai_tool": [
+          [
+            {
+              "node": "ReAct Agent con Tools",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Embeddings OpenAI1": {
+        "ai_embedding": [
+          [
+            {
+              "node": "consultar_documento_institucional",
+              "type": "ai_embedding",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Code in JavaScript",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request": {
+        "main": [
+          [
+            {
+              "node": "HTML",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTML": {
+        "main": [
+          [
+            {
+              "node": "Split Out",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items": {
+        "main": [
+          [
+            {
+              "node": "Simple Vector Store1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HTTP Request1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Split Out": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request1": {
+        "main": [
+          [
+            {
+              "node": "HTML1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTML1": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Juan Escobar",
+    "name": "Version 9ebe27ce",
+    "description": "",
+    "autosaved": true
+  },
   "tags": []
 }
