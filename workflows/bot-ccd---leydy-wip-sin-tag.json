@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-28T14:06:26.751Z",
+  "updatedAt": "2026-05-29T16:38:42.801Z",
   "createdAt": "2026-05-25T12:50:16.721Z",
   "id": "uafeHlnAsW7OWK0w",
   "name": "Bot CCD - Leydy WIP",
@@ -666,8 +666,8 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1.1,
       "position": [
-        5760,
-        4080
+        5744,
+        4160
       ],
       "id": "e8c0b772-2b0c-4cc2-afad-142dedf2de15",
       "name": "Default Data Loader4"
@@ -701,7 +701,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        5232,
+        5360,
         3936
       ],
       "id": "c40c131c-40ed-487b-b868-d8654f83c2ae",
@@ -1274,7 +1274,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "8b8df2e0-6cb5-4976-a772-a784bc053871",
+  "versionId": "e7c285eb-6301-42c3-86c5-23ded9a07898",
   "activeVersionId": null,
   "triggerCount": 0,
   "shared": [
